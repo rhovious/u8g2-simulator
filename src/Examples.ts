@@ -161,4 +161,47 @@ const WEATHER_CLOCK: UiExample = {
         "\n}"
 };
 
-export const examples = [INTRO, BATTERY_SIGNAL, UGLY_BIRD, WEATHER_CLOCK];
+const CONFIG_SCREEN: UiExample = {
+    name: "Config Screen",
+    code:
+        "\n// the line below is plain javascript, I'll need to fix the c++ transpilation for this in the future" +
+        "\nvar menu = [\"General\", \"Wifi\", \"Time\", \"Sensors\", \"Logging\"];" +
+        "\n" +
+        "\nvoid drawMenu(U8G2 u8g2, uint8_t selected) {" +
+        "\n    u8g2.setFont(u8g2_font_courB10_tf);" +
+        "\n" +
+        "\n    u8g2.drawStr(1,8, \"Config:\");" +
+        "\n    u8g2.drawHLine(0,11,100);" +
+        "\n    for (uint8_t i = 0; i < 5; i++) {" +
+        "\n        if (selected == i) {" +
+        "\n            u8g2.setFont(u8g2_font_courB10_tf);" +
+        "\n            u8g2.drawStr(1,10*(i+2)+1, \"> \");" +
+        "\n        } else {" +
+        "\n            u8g2.setFont(u8g2_font_courR10_tf);" +
+        "\n        }" +
+        "\n        u8g2.drawStr(10,10*(i+2)+1, menu[i]);" +
+        "\n    }" +
+        "\n}" +
+        "\n" +
+        "\nvoid drawButtons(U8G2 u8g2) {" +
+        "\n    u8g2.setFont(u8g2_font_courR10_tf);" +
+        "\n    u8g2.drawRFrame(96+4, 54, 32, 16, 4);" +
+        "\n    u8g2.drawRFrame(96+4, -4, 32, 16, 4);" +
+        "\n    u8g2.drawStr(103,8, \"Exit\");" +
+        "\n    u8g2.drawStr(109,63, \"OK\");" +
+        "\n" +
+        "\n    uint8_t x = 115;" +
+        "\n    u8g2.drawTriangle(x + 0, 28 + 0, x + 10, 28 + 0, x + 5, 28 - 5);" +
+        "\n    u8g2.drawTriangle(x + 0, 36 + 0, x + 10, 36 + 0, x + 5, 36 + 5);" +
+        "\n" +
+        "\n}" +
+        "\n" +
+        "\nvoid draw(U8G2 u8g2) {" +
+        "\n    u8g2.setDrawColor(1);" +
+        "\n    " +
+        "\n    drawMenu(u8g2, counter%5);" +
+        "\n    drawButtons(u8g2);" +
+        "\n }"
+}
+
+export const examples = [INTRO, BATTERY_SIGNAL, UGLY_BIRD, WEATHER_CLOCK, CONFIG_SCREEN];

@@ -282,7 +282,7 @@ export class UiEditor extends React.Component<{}, UiEditorState> {
                                 <Tile isChild render={
                                     (props: any) => (
                                         <Box {...props}>
-                                            <Title>1:2</Title>
+                                            <Title>2:1</Title>
                                             <canvas className="lcd-canvas-scaled" ref={c => {
                                                 if (c) {
                                                     this.canvasX2 = c;
@@ -297,7 +297,7 @@ export class UiEditor extends React.Component<{}, UiEditorState> {
                                 <Tile isChild render={
                                     (props: any) => (
                                         <Box {...props}>
-                                            <Title>1:4</Title>
+                                            <Title>4:1</Title>
                                             <canvas className="lcd-canvas-scaled" ref={c => {
                                                 if (c) {
                                                     this.canvasX4 = c;
