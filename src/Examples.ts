@@ -202,6 +202,6 @@ const CONFIG_SCREEN: UiExample = {
         "\n    drawMenu(u8g2, counter%5);" +
         "\n    drawButtons(u8g2);" +
         "\n }"
-}
+};
 
 export const examples = [INTRO, BATTERY_SIGNAL, UGLY_BIRD, WEATHER_CLOCK, CONFIG_SCREEN];
