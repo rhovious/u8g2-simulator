@@ -1,10 +1,10 @@
 
-export interface UiExample {
+export interface CodeExample {
     name: string;
     code: string;
 }
 
-export const INTRO: UiExample = {
+export const INTRO: CodeExample = {
     name: "Intro",
     code: "\nuint8_t helper = 0;" +
         "\nvoid draw(U8G2 u8g2) {" +
@@ -22,7 +22,7 @@ export const INTRO: UiExample = {
         "\n}"
 };
 
-const BATTERY_SIGNAL: UiExample = {
+const BATTERY_SIGNAL: CodeExample = {
     name: "Battery/Signal",
     code: "\nvoid drawBattery(U8G2 u8g2, int x, int y, int w, int h, int segments, int lvl) {" +
         "\n    u8g2.drawFrame(x,y,w,h);" +
@@ -54,7 +54,7 @@ const BATTERY_SIGNAL: UiExample = {
         "\n}"
 };
 
-const UGLY_BIRD: UiExample = {
+const UGLY_BIRD: CodeExample = {
     name: "Ugly Bird",
     code: "\nvoid drawBird(U8G2 u8g2, uint8_t x0, uint8_t y0, uint8_t state) {" +
         "\n    // the eye" +
@@ -80,7 +80,7 @@ const UGLY_BIRD: UiExample = {
         "\n}"
 };
 
-const WEATHER_CLOCK: UiExample = {
+const WEATHER_CLOCK: CodeExample = {
     name: "Weather / Clock",
     code:
         "\nvoid drawLabelTop(U8G2 u8g2, uint8_t day) {" +
@@ -161,7 +161,7 @@ const WEATHER_CLOCK: UiExample = {
         "\n}"
 };
 
-const CONFIG_SCREEN: UiExample = {
+const CONFIG_SCREEN: CodeExample = {
     name: "Config Screen",
     code:
         "\n// the line below is plain javascript, I'll need to fix the c++ transpilation for this in the future" +

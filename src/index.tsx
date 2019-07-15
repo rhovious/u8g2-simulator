@@ -1,5 +1,5 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { UiEditor } from "./UiEditor";
+import { Editor } from "./editor/Editor";
 
-ReactDOM.render(<UiEditor />, document.getElementById("app"));
+ReactDOM.render(<Editor />, document.getElementById("app"));

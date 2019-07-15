@@ -1,4 +1,4 @@
-import { Display } from "./UiEditorApi";
+import { Display } from "../displays/DisplayApi";
 
 export type CIRC_OPT =
     "U8G2_DRAW_UPPER_RIGHT" |

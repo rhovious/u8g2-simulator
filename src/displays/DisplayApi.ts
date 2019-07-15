@@ -1,4 +1,3 @@
-
 export interface Display {
     name: string;
     width: number;
