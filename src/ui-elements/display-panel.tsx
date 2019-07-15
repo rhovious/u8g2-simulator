@@ -1,5 +1,4 @@
 import React = require("react");
-import { Box } from "bloomer/lib/elements/Box";
 import { Display } from "../displays/DisplayApi";
 import { Icon } from "bloomer/lib/elements/Icon";
 import { Panel } from "bloomer/lib/components/Panel/Panel";
@@ -7,7 +6,6 @@ import { PanelBlock } from "bloomer/lib/components/Panel/PanelBlock";
 import { PanelHeading } from "bloomer/lib/components/Panel/PanelHeading";
 import { PanelProps } from "./panel";
 import { Tile } from "bloomer/lib/grid/Tile";
-import { Title } from "bloomer/lib/elements/Title";
 import { transpile } from "../util/cpp2javascript";
 import { scaleUp } from "../util/canvas";
 import { U8G2 } from "../util/U8G2";

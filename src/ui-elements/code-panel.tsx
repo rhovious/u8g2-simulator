@@ -35,7 +35,7 @@ export class CodePanel extends React.Component<CodePanelProps, CodePanelState> {
         return (
             <Panel>
                 <PanelHeading>
-                    <Icon className={"fa " + this.props.icon} />{this.props.title} <Icon className="fa fa-warning" />)
+                    <Icon className={"fa " + this.props.icon} />{this.props.title} <Icon className="fa fa-warning" />
                 </PanelHeading>
                 <PanelBlock>
                     {DisplaySelector(this.props.displaySelectorProps)}
