@@ -25,33 +25,20 @@ export class Editor extends React.Component<{}, EditorState> {
             display: oled128x64,
             isLooping: false,
             counter: 0,
-
-            displaySelectorProps: {
-                isActive: false,
-                label: "Displays",
-                setDisplay: this.setDisplay,
-                toggle: this.toggleDisplaySelector
-            },
-            exampleSelectorProps: {
-                isActive: false,
-                label: "Code Examples",
-                setExample: this.setCodeExample,
-                toggle: this.toggleExampleSelector
-            },
-            loopSelectorProps: {
-                isActive: false,
-                label: "Loop",
-                fps: 4,
-                setFps: this.setFps,
-                toggle: this.toggleLoopSelector,
-                toggleLoop: this.toggleLoop
-            }
+            displaySelectorIsActive: false,
+            loopSelectorIsActive: false,
+            exampleSelectorIsActive: false,
+            fps: 4
         };
         this.toggleDisplaySelector = this.toggleDisplaySelector.bind(this);
         this.toggleLoopSelector = this.toggleLoopSelector.bind(this);
         this.toggleExampleSelector = this.toggleExampleSelector.bind(this);
         this.loop = this.loop.bind(this);
         this.onExec = this.onExec.bind(this);
+        this.getCode = this.getCode.bind(this);
+        this.toggleLoop = this.toggleLoop.bind(this);
+        this.setCodeExample = this.setCodeExample.bind(this);
+        this.setDisplay = this.setDisplay.bind(this);
     }
 
     componentDidMount() {
@@ -59,7 +46,7 @@ export class Editor extends React.Component<{}, EditorState> {
     }
 
     toggleDisplaySelector() {
-        this.setState(prev => ({ displaySelectorProps: { ...prev.displaySelectorProps, isActive: !prev.displaySelectorProps.isActive } }));
+        this.setState(prev => ({ displaySelectorIsActive: !prev.displaySelectorIsActive }));
     }
 
     setDisplay(d: Display) {
@@ -68,11 +55,11 @@ export class Editor extends React.Component<{}, EditorState> {
     }
 
     toggleLoopSelector() {
-        this.setState(prev => ({ loopSelectorProps: { ...prev.loopSelectorProps, isActive: !prev.loopSelectorProps.isActive } }));
+        this.setState(prev => ({ loopSelectorIsActive: !prev.loopSelectorIsActive }));
     }
 
     setFps(i: number) {
-        this.setState({ loopSelectorProps: { ...this.state.loopSelectorProps, fps: i } });
+        this.setState({ fps: i });
     }
 
     toggleLoop() {
@@ -83,7 +70,7 @@ export class Editor extends React.Component<{}, EditorState> {
     }
 
     toggleExampleSelector() {
-        this.setState(prev => ({ exampleSelectorProps: { ...prev.exampleSelectorProps, isActive: !prev.exampleSelectorProps.isActive } }));
+        this.setState(prev => ({ exampleSelectorIsActive: !prev.exampleSelectorIsActive }));
     }
 
     setCodeExample(e: CodeExample) {
@@ -103,7 +90,7 @@ export class Editor extends React.Component<{}, EditorState> {
         this.setState(prev => ({ counter: prev.counter + 1 }));
         // this.redraw();
         if (this.state.isLooping) {
-            setTimeout(this.loop, 1000 / this.state.loopSelectorProps.fps);
+            setTimeout(this.loop, 1000 / this.state.fps);
         } else {
             this.setState({ counter: 0 });
         }
@@ -121,6 +108,7 @@ export class Editor extends React.Component<{}, EditorState> {
     }
 
     onExec() {
+        console.log(this.state.counter + 1);
         this.setState(prev => ({ counter: prev.counter + 1 }));
     }
 
@@ -128,28 +116,47 @@ export class Editor extends React.Component<{}, EditorState> {
         return (
             <div className="main">
                 <Columns isCentered>
-                    <Column isSize="3/4">
+                    <Column isSize="1/4">
                         <DisplayPanel
-                            title="Preview"
+                            title={"Preview (" + this.state.display.name + ")(" + this.state.counter + ")"}
                             icon="fa-tv"
                             getCode={this.getCode}
                             display={this.state.display}
-                            loopCounter={0}
+                            loopCounter={this.state.counter}
                             onEvalError={this.onEvalError}
 
                         />
+                        {DocumentationPanel({ title: "Documentation", icon: "fa-file" })}
+                    </Column>
+                    <Column isSize="3/4">
                         <CodePanel
                             title="Code"
                             icon="fa-code"
-                            displaySelectorProps={this.state.displaySelectorProps}
-                            loopSelectorProps={this.state.loopSelectorProps}
-                            exampleSelectorProps={this.state.exampleSelectorProps}
+                            displaySelectorProps={{
+                                label: "Preview",
+                                isActive: this.state.displaySelectorIsActive,
+                                setDisplay: this.setDisplay,
+                                toggle: this.toggleDisplaySelector
+                            }}
+
+                            loopSelectorProps={{
+                                label: "Loop",
+                                isLooping: this.state.isLooping,
+                                isActive: this.state.loopSelectorIsActive,
+                                toggle: this.toggleLoopSelector,
+                                toggleLoop: this.toggleLoop,
+                                fps: this.state.fps,
+                                setFps: this.setFps
+                            }}
+                            exampleSelectorProps={{
+                                label: "Code Examples",
+                                isActive: this.state.exampleSelectorIsActive,
+                                toggle: this.toggleExampleSelector,
+                                setExample: this.setCodeExample
+                            }}
                             code={this.state.code}
                             onCodeChange={this.onCodeChange}
                             onExec={this.onExec} />
-                    </Column>
-                    <Column isSize="1/4">
-                        {DocumentationPanel({ title: "Documentation", icon: "fa-file" })}
                     </Column>
                 </Columns>
             </div>

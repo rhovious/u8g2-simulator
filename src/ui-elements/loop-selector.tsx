@@ -13,6 +13,7 @@ export interface LoopSelectorProps extends SelectorProps {
     setFps(i: number): void;
     fps: number;
     toggleLoop(): void;
+    isLooping: boolean;
 }
 
 export const LoopSelector = (props: LoopSelectorProps) => {
@@ -20,8 +21,8 @@ export const LoopSelector = (props: LoopSelectorProps) => {
         <Dropdown isActive={props.isActive}>
             <DropdownTrigger>
                 <Button isOutlined aria-haspopup="true" aria-controls="dropdown-menu">
-                    <Icon onChange={props.toggle} className="fa fa-play" />
-                    <span onClick={props.toggleLoop} >{props.label}</span> {/*Loop {this.state.counter > 0 ? "(" + this.state.counter + ")" : "" */}
+                    <Icon onClick={props.toggleLoop} className={"fa " + (props.isLooping ? "fa-stop" : "fa-play")} />
+                    <span onClick={props.toggle} >{props.label}</span> {/*Loop {this.state.counter > 0 ? "(" + this.state.counter + ")" : "" */}
                     <Icon onClick={props.toggle} className="fa fa-angle-down" />
                 </Button>
             </DropdownTrigger>

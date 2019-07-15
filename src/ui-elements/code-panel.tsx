@@ -33,7 +33,7 @@ export class CodePanel extends React.Component<CodePanelProps, CodePanelState> {
     }
     render() {
         return (
-            <Panel style={{ marginTop: "10px" }}>
+            <Panel>
                 <PanelHeading>
                     <Icon className={"fa " + this.props.icon} />{this.props.title} <Icon className="fa fa-warning" />)
                 </PanelHeading>
@@ -47,7 +47,7 @@ export class CodePanel extends React.Component<CodePanelProps, CodePanelState> {
                     {/* <Label></Label> */}
                     <MonacoEditor
                         width="100%"
-                        height="500"
+                        height="800"
                         language="cpp"
                         theme="vs-light"
                         value={this.props.code}

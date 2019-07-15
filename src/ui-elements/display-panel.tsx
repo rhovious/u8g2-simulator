@@ -21,6 +21,7 @@ export interface DisplayPanelProps extends PanelProps {
 
 interface DisplayPanelState {
     lcdReady: boolean;
+    lastCounter: number;
 }
 
 export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPanelState> {
@@ -32,12 +33,14 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
     constructor(props: DisplayPanelProps) {
         super(props);
         this.state = {
-            lcdReady: false
+            lcdReady: false,
+            lastCounter: 0
         };
     }
 
     redraw() {
         if (this.ctx) {
+            console.log("redrawing");
             this.ctx.fillStyle = this.props.display.getColorValue(this.props.display.resetColor);
             this.ctx.fillRect(0, 0, this.props.display.width, this.props.display.height);
 
@@ -74,17 +77,20 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
     }
 
     render() {
-
+        console.log("last counter", this.state.lastCounter, this.props.loopCounter);
+        if (this.state.lastCounter !== this.props.loopCounter) {
+            this.redraw();
+        }
         return (
             <Panel>
-                <PanelHeading><Icon className="fa fa-tv" /> Display ({this.props.display.name})</PanelHeading>
+                <PanelHeading><Icon className="fa fa-tv" />{this.props.title}</PanelHeading>
                 <PanelBlock>
-                    <Tile isAncestor>
+                    <Tile isAncestor >
                         <Tile isSize={4} isVertical isParent>
                             <Tile isChild render={
                                 (props: any) => (
-                                    <Box {...props}>
-                                        <Title>1:1</Title>
+                                    <div {...props}>
+                                        <p>1:1</p>
                                         <canvas className="lcd-canvas" ref={c => {
                                             if (c) {
                                                 this.canvas = c;
@@ -96,35 +102,33 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
                                             }
                                         }
                                         } width={this.props.display.width} height={this.props.display.height} />
-                                    </Box>
+                                    </div>
                                 )
                             } />
                             <Tile isChild render={
                                 (props: any) => (
-                                    <Box {...props}>
-                                        <Title>2:1</Title>
+                                    <div {...props}>
+                                        <p>2:1</p>
                                         <canvas className="lcd-canvas-scaled" ref={c => {
                                             if (c) {
                                                 this.canvasX2 = c;
                                             }
                                         }
                                         } width={this.props.display.width * 2} height={this.props.display.height * 2} />
-                                    </Box>
+                                    </div>
                                 )
                             } />
-                        </Tile>
-                        <Tile isParent>
                             <Tile isChild render={
                                 (props: any) => (
-                                    <Box {...props}>
-                                        <Title>4:1</Title>
+                                    <div {...props}>
+                                        <p>4:1</p>
                                         <canvas className="lcd-canvas-scaled" ref={c => {
                                             if (c) {
                                                 this.canvasX4 = c;
                                             }
                                         }
                                         } width={this.props.display.width * 4} height={this.props.display.height * 4} />
-                                    </Box>
+                                    </div>
                                 )
                             } />
                         </Tile>
