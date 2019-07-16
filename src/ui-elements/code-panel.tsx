@@ -12,6 +12,8 @@ import { Navbar } from "bloomer/lib/components/Navbar/Navbar";
 import { NavbarMenu } from "bloomer/lib/components/Navbar/NavbarMenu";
 import { NavbarStart } from "bloomer/lib/components/Navbar/NavbarStart";
 import { NavbarEnd } from "bloomer/lib/components/Navbar/NavbarEnd";
+import { Notification } from "bloomer/lib/elements/Notification";
+import { Container } from "bloomer/lib/layout/Container";
 
 export interface CodePanelProps extends PanelProps {
     loopSelectorProps: LoopSelectorProps;
@@ -21,6 +23,7 @@ export interface CodePanelProps extends PanelProps {
     onExec(): void;
     isLooping: boolean;
     toggleLoop(): void;
+    errorMessage?: string;
 }
 
 export interface CodePanelState {
@@ -77,7 +80,17 @@ export class CodePanel extends React.Component<CodePanelProps, CodePanelState> {
                         }}
                     />
                 </PanelBlock>
-                {/* <Button onClick={this.redraw}>Run</Button> */}
+                <PanelBlock>
+                    <Container className="padLeft">
+                        {
+                            this.props.errorMessage ?
+                                <Notification>
+                                    {this.props.errorMessage}
+                                </Notification>
+                                : ""
+                        }
+                    </Container>
+                </PanelBlock>
             </Panel>
         );
     }

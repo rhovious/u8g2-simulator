@@ -10,7 +10,6 @@ import { Columns } from "bloomer/lib/grid/Columns";
 import { DisplayPanel } from "../ui-elements/display-panel";
 import { CodePanel } from "../ui-elements/code-panel";
 import { ZoomLevel } from "../ui-elements/zoom-selection-menu";
-import { ErrorMessagePanel } from "../ui-elements/errormessage-panel";
 
 export class Editor extends React.Component<{}, EditorState> {
     renderLoopEditor(): React.ReactNode {
@@ -47,7 +46,7 @@ export class Editor extends React.Component<{}, EditorState> {
     }
 
     componentDidMount() {
-        // this.redraw();
+        this.onExec();
     }
 
     setDisplay(d: Display) {
@@ -75,9 +74,6 @@ export class Editor extends React.Component<{}, EditorState> {
 
     setCodeExample(e: CodeExample) {
         this.setState({ code: e.code });
-        // if (!this.state.loop) {
-        //     setTimeout(this.redraw, 500);
-        // }
     }
 
     onCodeChange(updatedCode: string) {
@@ -100,7 +96,7 @@ export class Editor extends React.Component<{}, EditorState> {
     onEvalError(e?: Error) {
         console.log(e);
         if (e) {
-            this.setState({ errorMessage: e.message });
+             //this.setState({ errorMessage: e.message });
         }
     }
 
@@ -156,11 +152,8 @@ export class Editor extends React.Component<{}, EditorState> {
                             }}
                             code={this.state.code}
                             onCodeChange={this.onCodeChange}
-                            onExec={this.onExec} />
-                        <ErrorMessagePanel
+                            onExec={this.onExec}
                             errorMessage={this.state.errorMessage}
-                            icon="fa-error"
-                            title="Eval Errors"
                         />
                     </Column>
                 </Columns>
