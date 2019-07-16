@@ -64,6 +64,7 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
                     // this.setState({ errorMsg: "" });
                 }
             } catch (e) {
+                console.log(e);
                 this.props.onEvalError(e);
                 // this.setState({ errorMsg: e.name + ":\n\n" + e.message });
             }

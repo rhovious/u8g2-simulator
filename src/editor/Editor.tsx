@@ -10,6 +10,7 @@ import { Columns } from "bloomer/lib/grid/Columns";
 import { DisplayPanel } from "../ui-elements/display-panel";
 import { CodePanel } from "../ui-elements/code-panel";
 import { ZoomLevel } from "../ui-elements/zoom-selection-menu";
+import { ErrorMessagePanel } from "../ui-elements/errormessage-panel";
 
 export class Editor extends React.Component<{}, EditorState> {
     renderLoopEditor(): React.ReactNode {
@@ -41,6 +42,8 @@ export class Editor extends React.Component<{}, EditorState> {
         this.setDisplay = this.setDisplay.bind(this);
         this.setZoom = this.setZoom.bind(this);
         this.setFps = this.setFps.bind(this);
+        this.onEvalError = this.onEvalError.bind(this);
+        this.onCodeChange = this.onCodeChange.bind(this);
     }
 
     componentDidMount() {
@@ -95,6 +98,7 @@ export class Editor extends React.Component<{}, EditorState> {
     }
 
     onEvalError(e?: Error) {
+        console.log(e);
         if (e) {
             this.setState({ errorMessage: e.message });
         }
@@ -139,9 +143,8 @@ export class Editor extends React.Component<{}, EditorState> {
                             title="Code"
                             icon="fa-code"
                             isLooping={this.state.isLooping}
-
+                            toggleLoop={this.toggleLoop}
                             loopSelectorProps={{
-                                toggleLoop: this.toggleLoop,
                                 fps: this.state.fps,
                                 setFps: this.setFps
                             }}
@@ -154,6 +157,11 @@ export class Editor extends React.Component<{}, EditorState> {
                             code={this.state.code}
                             onCodeChange={this.onCodeChange}
                             onExec={this.onExec} />
+                        <ErrorMessagePanel
+                            errorMessage={this.state.errorMessage}
+                            icon="fa-error"
+                            title="Eval Errors"
+                        />
                     </Column>
                 </Columns>
             </div>

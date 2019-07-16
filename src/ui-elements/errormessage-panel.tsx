@@ -7,7 +7,7 @@ import { PanelHeading } from "bloomer/lib/components/Panel/PanelHeading";
 import { PanelProps } from "./panel";
 
 export interface ErrorMessagePanelProps extends PanelProps {
-    errorMessage: string;
+    errorMessage?: string;
 }
 
 export const ErrorMessagePanel = (props: ErrorMessagePanelProps) => {
@@ -21,7 +21,8 @@ export const ErrorMessagePanel = (props: ErrorMessagePanelProps) => {
                             <Notification>
                                 {props.errorMessage}
                             </Notification>
-                            : ""}
+                            : ""
+                    }
                 </Container>
             </PanelBlock>
         </Panel>

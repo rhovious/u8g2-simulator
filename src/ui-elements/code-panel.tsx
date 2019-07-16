@@ -6,7 +6,7 @@ import { PanelBlock } from "bloomer/lib/components/Panel/PanelBlock";
 import { PanelHeading } from "bloomer/lib/components/Panel/PanelHeading";
 import { PanelProps } from "./panel";
 import { LoopSelectorProps, LoopSelector } from "./loop-selector";
-import { ExampleSelectorProps, ExampleSelector } from "./example-selector";
+import { ExampleSelectorProps, ExampleSelector } from "./example-selection-menu";
 import { NavbarItem } from "bloomer/lib/components/Navbar/NavbarItem";
 import { Navbar } from "bloomer/lib/components/Navbar/Navbar";
 import { NavbarMenu } from "bloomer/lib/components/Navbar/NavbarMenu";
@@ -20,6 +20,7 @@ export interface CodePanelProps extends PanelProps {
     onCodeChange(code: string): void;
     onExec(): void;
     isLooping: boolean;
+    toggleLoop(): void;
 }
 
 export interface CodePanelState {
@@ -41,11 +42,11 @@ export class CodePanel extends React.Component<CodePanelProps, CodePanelState> {
                 </PanelHeading>
                 <Navbar style={{ border: "solid 1px rgb(219,219,219)", borderTop: "0px", margin: "0" }}>
                     <NavbarMenu>
-                        <NavbarItem onClick={() => this.props.onExec()}>
-                            <Icon className="fa fa-cogs" />&nbsp;Eval()
+                        <NavbarItem onClick={this.props.onExec}>
+                            <Icon className="fa fa-cogs" />&nbsp;Eval
                         </NavbarItem>
-                        <NavbarItem onClick={() => this.props.onExec()}>
-                            <Icon className={"fa " + (this.props.isLooping ? "fa-stop" : "fa-play")} />&nbsp;LoopEval()
+                        <NavbarItem onClick={this.props.toggleLoop}>
+                            <Icon className={"fa " + (this.props.isLooping ? "fa-stop" : "fa-play")} />&nbsp;LoopEval
                         </NavbarItem>
                         <NavbarStart>
                             {LoopSelector(this.props.loopSelectorProps)}
