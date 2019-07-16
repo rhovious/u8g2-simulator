@@ -7,7 +7,7 @@ import { DropdownContent } from "bloomer/lib/components/Dropdown/Menu/DropdownCo
 import { examples, CodeExample } from "../examples/Examples";
 import { DropdownItem } from "bloomer/lib/components/Dropdown/Menu/DropdownItem";
 import { SelectorProps } from "./selector";
-import React = require("react");
+import * as React from "react";
 
 export interface ExampleSelectorProps extends SelectorProps {
     setExample(e: CodeExample): void;

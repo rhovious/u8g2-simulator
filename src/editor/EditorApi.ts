@@ -1,4 +1,5 @@
 import { Display } from "../displays/DisplayApi";
+import { ZoomLevel } from "../ui-elements/zoom-selection-menu";
 
 export interface EditorState {
     code: string;
@@ -6,6 +7,7 @@ export interface EditorState {
     counter: number;
     isLooping: boolean;
     fps: number;
+    zoom: ZoomLevel;
 
     displaySelectorIsActive: boolean;
     exampleSelectorIsActive: boolean;

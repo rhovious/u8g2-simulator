@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { Button } from "bloomer/lib/elements/Button";
 import { Dropdown } from "bloomer/lib/components/Dropdown/Dropdown";
 import { DropdownContent } from "bloomer/lib/components/Dropdown/Menu/DropdownContent";

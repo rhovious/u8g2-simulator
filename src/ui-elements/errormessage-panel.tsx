@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { Container } from "bloomer/lib/layout/Container";
 import { Notification } from "bloomer/lib/elements/Notification";
 import { Panel } from "bloomer/lib/components/Panel/Panel";

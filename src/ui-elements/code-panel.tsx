@@ -1,8 +1,7 @@
-import React = require("react");
+import * as React from "react";
 import MonacoEditor from "react-monaco-editor";
 
 import { Button } from "bloomer/lib/elements/Button";
-import { DisplaySelector, DisplaySelectorProps } from "./display-selector";
 import { Icon } from "bloomer/lib/elements/Icon";
 import { Panel } from "bloomer/lib/components/Panel/Panel";
 import { PanelBlock } from "bloomer/lib/components/Panel/PanelBlock";
@@ -12,7 +11,6 @@ import { LoopSelectorProps, LoopSelector } from "./loop-selector";
 import { ExampleSelectorProps, ExampleSelector } from "./example-selector";
 
 export interface CodePanelProps extends PanelProps {
-    displaySelectorProps: DisplaySelectorProps;
     loopSelectorProps: LoopSelectorProps;
     exampleSelectorProps: ExampleSelectorProps;
     code: string;
@@ -35,10 +33,9 @@ export class CodePanel extends React.Component<CodePanelProps, CodePanelState> {
         return (
             <Panel>
                 <PanelHeading>
-                    <Icon className={"fa " + this.props.icon} />{this.props.title} <Icon className="fa fa-warning" />
+                    <Icon className={"fa " + this.props.icon} style={{ marginRight: "8px" }} />{this.props.title}
                 </PanelHeading>
                 <PanelBlock>
-                    {DisplaySelector(this.props.displaySelectorProps)}
                     <Button onClick={() => this.props.onExec()}><Icon className="fa fa-cogs" />&nbsp;Run Once</Button>
                     {LoopSelector(this.props.loopSelectorProps)}
                     {ExampleSelector(this.props.exampleSelectorProps)}

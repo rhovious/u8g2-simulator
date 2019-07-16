@@ -9,6 +9,7 @@ import { Column } from "bloomer/lib/grid/Column";
 import { Columns } from "bloomer/lib/grid/Columns";
 import { DisplayPanel } from "../ui-elements/display-panel";
 import { CodePanel } from "../ui-elements/code-panel";
+import { ZoomLevel } from "../ui-elements/zoom-selection-menu";
 
 export class Editor extends React.Component<{}, EditorState> {
     renderLoopEditor(): React.ReactNode {
@@ -28,7 +29,8 @@ export class Editor extends React.Component<{}, EditorState> {
             displaySelectorIsActive: false,
             loopSelectorIsActive: false,
             exampleSelectorIsActive: false,
-            fps: 4
+            fps: 4,
+            zoom: ZoomLevel.TWO
         };
         this.toggleDisplaySelector = this.toggleDisplaySelector.bind(this);
         this.toggleLoopSelector = this.toggleLoopSelector.bind(this);
@@ -39,6 +41,7 @@ export class Editor extends React.Component<{}, EditorState> {
         this.toggleLoop = this.toggleLoop.bind(this);
         this.setCodeExample = this.setCodeExample.bind(this);
         this.setDisplay = this.setDisplay.bind(this);
+        this.setZoom = this.setZoom.bind(this);
     }
 
     componentDidMount() {
@@ -60,6 +63,10 @@ export class Editor extends React.Component<{}, EditorState> {
 
     setFps(i: number) {
         this.setState({ fps: i });
+    }
+
+    setZoom(zoom: ZoomLevel) {
+        this.setState( { zoom: zoom } );
     }
 
     toggleLoop() {
@@ -125,6 +132,15 @@ export class Editor extends React.Component<{}, EditorState> {
                             loopCounter={this.state.counter}
                             onEvalError={this.onEvalError}
 
+                            displaySelectorProps={{
+                                setDisplay: this.setDisplay
+                            }}
+
+                            zoomSelectorProps={{
+                                setZoom: this.setZoom
+                            }}
+
+                            zoom={this.state.zoom}
                         />
                         {DocumentationPanel({ title: "Documentation", icon: "fa-file" })}
                     </Column>
@@ -132,12 +148,6 @@ export class Editor extends React.Component<{}, EditorState> {
                         <CodePanel
                             title="Code"
                             icon="fa-code"
-                            displaySelectorProps={{
-                                label: "Preview",
-                                isActive: this.state.displaySelectorIsActive,
-                                setDisplay: this.setDisplay,
-                                toggle: this.toggleDisplaySelector
-                            }}
 
                             loopSelectorProps={{
                                 label: "Loop",

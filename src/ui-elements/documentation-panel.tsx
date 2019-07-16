@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { Icon } from "bloomer/lib/elements/Icon";
 import { Panel } from "bloomer/lib/components/Panel/Panel";
 import { PanelBlock } from "bloomer/lib/components/Panel/PanelBlock";

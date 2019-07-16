@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { Display } from "../displays/DisplayApi";
 import { Icon } from "bloomer/lib/elements/Icon";
 import { Panel } from "bloomer/lib/components/Panel/Panel";
@@ -9,12 +9,23 @@ import { Tile } from "bloomer/lib/grid/Tile";
 import { transpile } from "../util/cpp2javascript";
 import { scaleUp } from "../util/canvas";
 import { U8G2 } from "../util/U8G2";
+import { Navbar } from "bloomer/lib/components/Navbar/Navbar";
+import { NavbarItem } from "bloomer/lib/components/Navbar/NavbarItem";
+import { NavbarMenu } from "bloomer/lib/components/Navbar/NavbarMenu";
+import { NavbarStart } from "bloomer/lib/components/Navbar/NavbarStart";
+import { NavbarEnd } from "bloomer/lib/components/Navbar/NavbarEnd";
+import { DisplaySelector, DisplaySelectorProps } from "./display-selection-menu";
+import { ZoomSelector, ZoomSelectorProps, ZoomLevel } from "./zoom-selection-menu";
 
 export interface DisplayPanelProps extends PanelProps {
+    displaySelectorProps: DisplaySelectorProps;
+    zoomSelectorProps: ZoomSelectorProps;
     getCode(): string;
     display: Display;
     loopCounter: number;
     onEvalError(e?: Error): void;
+
+    zoom: ZoomLevel;
 }
 
 interface DisplayPanelState {
@@ -81,7 +92,20 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
         }
         return (
             <Panel>
-                <PanelHeading><Icon className="fa fa-tv" />{this.props.title}</PanelHeading>
+                <PanelHeading><Icon className="fa fa-tv" isSize="small" style={{ marginRight: "8px" }} />{this.props.title}</PanelHeading>
+                <Navbar style={{ border: "solid 1px rgb(219,219,219)", borderTop: "0px", margin: "0" }}>
+                    <NavbarMenu>
+                        <NavbarStart>
+                            {DisplaySelector(this.props.displaySelectorProps)}
+                            {ZoomSelector(this.props.zoomSelectorProps)}
+                        </NavbarStart>
+                        <NavbarEnd>
+                            <NavbarItem href="https://github.com/AlgusDark/bloomer">
+                                <Icon className="fa fa-github" />
+                            </NavbarItem>
+                        </NavbarEnd>
+                    </NavbarMenu>
+                </Navbar>
                 <PanelBlock>
                     <Tile isAncestor >
                         <Tile isSize={4} isVertical isParent>
@@ -103,32 +127,35 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
                                     </div>
                                 )
                             } />
-                            <Tile isChild render={
-                                (props: any) => (
-                                    <div {...props}>
-                                        <p>2:1</p>
-                                        <canvas className="lcd-canvas-scaled" ref={c => {
-                                            if (c) {
-                                                this.canvasX2 = c;
+                            {this.props.zoom === ZoomLevel.TWO || this.props.zoom === ZoomLevel.FOUR ?
+                                <Tile isChild render={
+                                    (props: any) => (
+                                        <div {...props}>
+                                            <p>2:1</p>
+                                            <canvas className="lcd-canvas-scaled" ref={c => {
+                                                if (c) {
+                                                    this.canvasX2 = c;
+                                                }
                                             }
-                                        }
-                                        } width={this.props.display.width * 2} height={this.props.display.height * 2} />
-                                    </div>
-                                )
-                            } />
-                            <Tile isChild render={
-                                (props: any) => (
-                                    <div {...props}>
-                                        <p>4:1</p>
-                                        <canvas className="lcd-canvas-scaled" ref={c => {
-                                            if (c) {
-                                                this.canvasX4 = c;
+                                            } width={this.props.display.width * 2} height={this.props.display.height * 2} />
+                                        </div>
+                                    )
+                                } />
+                                : ""}
+                            {this.props.zoom === ZoomLevel.FOUR ?
+                                <Tile isChild render={
+                                    (props: any) => (
+                                        <div {...props}>
+                                            <p>4:1</p>
+                                            <canvas className="lcd-canvas-scaled" ref={c => {
+                                                if (c) {
+                                                    this.canvasX4 = c;
+                                                }
                                             }
-                                        }
-                                        } width={this.props.display.width * 4} height={this.props.display.height * 4} />
-                                    </div>
-                                )
-                            } />
+                                            } width={this.props.display.width * 4} height={this.props.display.height * 4} />
+                                        </div>
+                                    )
+                                } /> : ""}
                         </Tile>
                     </Tile>
                 </PanelBlock>

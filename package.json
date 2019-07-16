@@ -27,7 +27,7 @@
     "@types/react-dom": "^16.0.3",
     "@types/react-monaco-editor": "^0.10.1",
     "@types/toastr": "^2.1.35",
-    "bloomer": "^0.6.3",
+    "bloomer": "^0.6.5",
     "bulma": "^0.6.2",
     "copy-webpack-plugin": "^4.5.1",
     "cpr": "^3.0.1",
