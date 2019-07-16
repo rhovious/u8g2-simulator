@@ -15,6 +15,9 @@ import { NavbarEnd } from "bloomer/lib/components/Navbar/NavbarEnd";
 import { Notification } from "bloomer/lib/elements/Notification";
 import { Container } from "bloomer/lib/layout/Container";
 
+// this bit is ugly...
+export type ErrorCallback = (msg?: string) => void;
+
 export interface CodePanelProps extends PanelProps {
     loopSelectorProps: LoopSelectorProps;
     exampleSelectorProps: ExampleSelectorProps;
@@ -23,17 +26,19 @@ export interface CodePanelProps extends PanelProps {
     onExec(): void;
     isLooping: boolean;
     toggleLoop(): void;
-    errorMessage?: string;
+    hookErrorCallback(ecb: ErrorCallback): void;
 }
 
 export interface CodePanelState {
     codeEditor?: monaco.editor.ICodeEditor;
+    errorMessage?: string;
 }
 
 export class CodePanel extends React.Component<CodePanelProps, CodePanelState> {
 
     constructor(props: CodePanelProps) {
         super(props);
+        this.props.hookErrorCallback((msg?: string) => this.setState({ errorMessage: msg }));
         this.state = {
         };
     }
@@ -66,7 +71,7 @@ export class CodePanel extends React.Component<CodePanelProps, CodePanelState> {
                     {/* <Label></Label> */}
                     <MonacoEditor
                         width="100%"
-                        height="800"
+                        height="500"
                         language="cpp"
                         theme="vs-light"
                         value={this.props.code}
@@ -83,9 +88,9 @@ export class CodePanel extends React.Component<CodePanelProps, CodePanelState> {
                 <PanelBlock>
                     <Container className="padLeft">
                         {
-                            this.props.errorMessage ?
+                            this.state.errorMessage ?
                                 <Notification>
-                                    {this.props.errorMessage}
+                                    {this.state.errorMessage}
                                 </Notification>
                                 : ""
                         }

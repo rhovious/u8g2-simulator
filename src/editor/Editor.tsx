@@ -1,38 +1,30 @@
 import * as React from "react";
 
 import { EditorState } from "./EditorApi";
-import { INTRO, CodeExample } from "../examples/Examples";
+import { examples, CodeExample } from "../examples/Examples";
 import { oled128x64 } from "../displays/Displays";
 import { Display } from "../displays/DisplayApi";
 import { DocumentationPanel } from "../ui-elements/documentation-panel";
 import { Column } from "bloomer/lib/grid/Column";
 import { Columns } from "bloomer/lib/grid/Columns";
 import { DisplayPanel } from "../ui-elements/display-panel";
-import { CodePanel } from "../ui-elements/code-panel";
+import { CodePanel, ErrorCallback } from "../ui-elements/code-panel";
 import { ZoomLevel } from "../ui-elements/zoom-selection-menu";
 
 export class Editor extends React.Component<{}, EditorState> {
-    renderLoopEditor(): React.ReactNode {
-        throw new Error("Method not implemented.");
-    }
-    renderExampleSelector(): React.ReactNode {
-        throw new Error("Method not implemented.");
-    }
 
-    constructor(props: {}) {
+    constructor(props: { }, private code: string) {
         super(props);
+        this.code = examples[0].code;
+
         this.state = {
-            code: INTRO.code,
             display: oled128x64,
             isLooping: false,
             counter: 0,
-            displaySelectorIsActive: false,
-            loopSelectorIsActive: false,
-            exampleSelectorIsActive: false,
             fps: 4,
             zoom: ZoomLevel.TWO
         };
-        this.toggleExampleSelector = this.toggleExampleSelector.bind(this);
+
         this.loop = this.loop.bind(this);
         this.onExec = this.onExec.bind(this);
         this.getCode = this.getCode.bind(this);
@@ -43,6 +35,7 @@ export class Editor extends React.Component<{}, EditorState> {
         this.setFps = this.setFps.bind(this);
         this.onEvalError = this.onEvalError.bind(this);
         this.onCodeChange = this.onCodeChange.bind(this);
+        this.hookErrorCallback = this.hookErrorCallback.bind(this);
     }
 
     componentDidMount() {
@@ -68,16 +61,12 @@ export class Editor extends React.Component<{}, EditorState> {
         this.setState(prev => ({ isLooping: !prev.isLooping }));
     }
 
-    toggleExampleSelector() {
-        this.setState(prev => ({ exampleSelectorIsActive: !prev.exampleSelectorIsActive }));
-    }
-
     setCodeExample(e: CodeExample) {
-        this.setState({ code: e.code });
+        this.code = e.code;
     }
 
     onCodeChange(updatedCode: string) {
-        this.setState({ code: updatedCode });
+        this.code = updatedCode;
     }
 
     loop() {
@@ -93,19 +82,21 @@ export class Editor extends React.Component<{}, EditorState> {
 
     }
 
+    hookErrorCallback(cb: ErrorCallback) {
+        this.setState({ errorCallback : cb });
+    }
+
     onEvalError(e?: Error) {
-        console.log(e);
-        if (e) {
-             //this.setState({ errorMessage: e.message });
+        if (this.state.errorCallback) {
+            this.state.errorCallback( e ? e.message : "");
         }
     }
 
     getCode() {
-        return this.state.code;
+        return this.code;
     }
 
     onExec() {
-        console.log(this.state.counter + 1);
         this.setState(prev => ({ counter: prev.counter + 1 }));
     }
 
@@ -144,17 +135,18 @@ export class Editor extends React.Component<{}, EditorState> {
                                 fps: this.state.fps,
                                 setFps: this.setFps
                             }}
+
+                            hookErrorCallback={this.hookErrorCallback}
+
                             exampleSelectorProps={{
-                                label: "Code Examples",
-                                isActive: this.state.exampleSelectorIsActive,
-                                toggle: this.toggleExampleSelector,
                                 setExample: this.setCodeExample
                             }}
-                            code={this.state.code}
+
+                            code={this.code}
                             onCodeChange={this.onCodeChange}
                             onExec={this.onExec}
-                            errorMessage={this.state.errorMessage}
-                        />
+
+                            />
                     </Column>
                 </Columns>
             </div>
