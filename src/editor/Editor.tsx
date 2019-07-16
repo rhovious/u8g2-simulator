@@ -32,8 +32,6 @@ export class Editor extends React.Component<{}, EditorState> {
             fps: 4,
             zoom: ZoomLevel.TWO
         };
-        this.toggleDisplaySelector = this.toggleDisplaySelector.bind(this);
-        this.toggleLoopSelector = this.toggleLoopSelector.bind(this);
         this.toggleExampleSelector = this.toggleExampleSelector.bind(this);
         this.loop = this.loop.bind(this);
         this.onExec = this.onExec.bind(this);
@@ -42,23 +40,15 @@ export class Editor extends React.Component<{}, EditorState> {
         this.setCodeExample = this.setCodeExample.bind(this);
         this.setDisplay = this.setDisplay.bind(this);
         this.setZoom = this.setZoom.bind(this);
+        this.setFps = this.setFps.bind(this);
     }
 
     componentDidMount() {
         // this.redraw();
     }
 
-    toggleDisplaySelector() {
-        this.setState(prev => ({ displaySelectorIsActive: !prev.displaySelectorIsActive }));
-    }
-
     setDisplay(d: Display) {
-        this.toggleDisplaySelector();
         this.setState({ display: d });
-    }
-
-    toggleLoopSelector() {
-        this.setState(prev => ({ loopSelectorIsActive: !prev.loopSelectorIsActive }));
     }
 
     setFps(i: number) {
@@ -66,7 +56,7 @@ export class Editor extends React.Component<{}, EditorState> {
     }
 
     setZoom(zoom: ZoomLevel) {
-        this.setState( { zoom: zoom } );
+        this.setState({ zoom: zoom });
     }
 
     toggleLoop() {
@@ -148,12 +138,9 @@ export class Editor extends React.Component<{}, EditorState> {
                         <CodePanel
                             title="Code"
                             icon="fa-code"
+                            isLooping={this.state.isLooping}
 
                             loopSelectorProps={{
-                                label: "Loop",
-                                isLooping: this.state.isLooping,
-                                isActive: this.state.loopSelectorIsActive,
-                                toggle: this.toggleLoopSelector,
                                 toggleLoop: this.toggleLoop,
                                 fps: this.state.fps,
                                 setFps: this.setFps
