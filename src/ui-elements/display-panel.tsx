@@ -10,10 +10,8 @@ import { transpile } from "../util/cpp2javascript";
 import { scaleUp } from "../util/canvas";
 import { U8G2 } from "../util/U8G2";
 import { Navbar } from "bloomer/lib/components/Navbar/Navbar";
-import { NavbarItem } from "bloomer/lib/components/Navbar/NavbarItem";
 import { NavbarMenu } from "bloomer/lib/components/Navbar/NavbarMenu";
 import { NavbarStart } from "bloomer/lib/components/Navbar/NavbarStart";
-import { NavbarEnd } from "bloomer/lib/components/Navbar/NavbarEnd";
 import { DisplaySelector, DisplaySelectorProps } from "./display-selection-menu";
 import { ZoomSelector, ZoomSelectorProps, ZoomLevel } from "./zoom-selection-menu";
 
@@ -61,12 +59,10 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
                 if (result) {
                     result()(u8g2);
                     this.props.onEvalError();
-                    // this.setState({ errorMsg: "" });
                 }
             } catch (e) {
                 console.log(e);
                 this.props.onEvalError(e);
-                // this.setState({ errorMsg: e.name + ":\n\n" + e.message });
             }
 
             if (this.canvasX2) {
@@ -100,11 +96,6 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
                             {DisplaySelector(this.props.displaySelectorProps)}
                             {ZoomSelector(this.props.zoomSelectorProps)}
                         </NavbarStart>
-                        <NavbarEnd>
-                            <NavbarItem href="https://github.com/AlgusDark/bloomer">
-                                <Icon className="fa fa-github" />
-                            </NavbarItem>
-                        </NavbarEnd>
                     </NavbarMenu>
                 </Navbar>
                 <PanelBlock>

@@ -61,7 +61,13 @@ export class CodePanel extends React.Component<CodePanelProps, CodePanelState> {
                             {ExampleSelector(this.props.exampleSelectorProps)}
                         </NavbarStart>
                         <NavbarEnd>
-                            <NavbarItem href="https://github.com/AlgusDark/bloomer">
+                            <NavbarItem href="https://p3dt.net">
+                                <Icon className="fa fa-home" />
+                            </NavbarItem>
+                            <NavbarItem href="https://instagram.com/pauls_3d_things">
+                                <Icon className="fa fa-instagram" />
+                            </NavbarItem>
+                            <NavbarItem href="https://github.com/pauls-3d-things/u8g2-simulator">
                                 <Icon className="fa fa-github" />
                             </NavbarItem>
                         </NavbarEnd>
