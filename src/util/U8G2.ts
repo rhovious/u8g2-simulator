@@ -1,4 +1,6 @@
 import { Display } from "../displays/DisplayApi";
+import courB12 from "../bdf/courB12.bdf";
+const BDFFont = require("bdf-canvas");
 
 export type CIRC_OPT =
     "U8G2_DRAW_UPPER_RIGHT" |
@@ -7,7 +9,7 @@ export type CIRC_OPT =
     "U8G2_DRAW_LOWER_RIGHT" |
     "U8G2_DRAW_ALL";
 
-const adobeFontMapper = (font: string) => {
+export const adobeFontMapper = (font: string) => {
     // u8g2_font_[]_tf
     const parts = font.split("_");
     let f = parts[2];
@@ -34,7 +36,7 @@ const adobeFontMapper = (font: string) => {
 
 export class U8G2 {
     private drawColor = 0;
-    private font: string = adobeFontMapper("u8g2_font_courR08_tf");
+    // private font: string = adobeFontMapper("u8g2_font_courR08_tf");
 
     constructor(private ctx: CanvasRenderingContext2D, private display: Display) {
         this.ctx.lineWidth = 1;
@@ -601,12 +603,13 @@ export class U8G2 {
     }
 
     setFont(font: string) {
-        this.font = adobeFontMapper(font);
+        // this.font = font; // adobeFontMapper(font);
     }
 
     drawStr(x: number, y: number, str: string) {
-        this.ctx.font = this.font;
-        this.ctx.fillText(str, x, y);
+        console.log(courB12);
+        const font = new BDFFont.BDFFont(courB12);
+        font.drawText(this.ctx, str, x, y - 1);
     }
 
     setDrawColor(color: number) {

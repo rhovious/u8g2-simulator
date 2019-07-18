@@ -12,6 +12,12 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /.bdf$/,
+                use: 'raw-loader',
+                exclude: /node_modules/,
+                include: /src/
+            },
+            {
                 test: /.tsx?$/,
                 loaders: ['ts-loader'],
                 exclude: /node_modules/,
