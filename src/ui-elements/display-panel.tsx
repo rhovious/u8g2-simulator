@@ -36,6 +36,7 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
     canvas: HTMLCanvasElement | null = null;
     canvasX2: HTMLCanvasElement | null = null;
     canvasX4: HTMLCanvasElement | null = null;
+    u8g2: U8G2 | null = null;
 
     constructor(props: DisplayPanelProps) {
         super(props);
@@ -47,17 +48,20 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
 
     redraw() {
         if (this.ctx) {
-            console.log("redrawing");
+
             this.ctx.fillStyle = this.props.display.getColorValue(this.props.display.resetColor);
             this.ctx.fillRect(0, 0, this.props.display.width, this.props.display.height);
 
-            const u8g2: U8G2 = new U8G2(this.ctx, this.props.display);
+            if (this.u8g2 === null) {
+                this.u8g2 = new U8G2(this.ctx, this.props.display);
+            }
+
             const transpiled = transpile(this.props.getCode());
             try {
 
                 const result = eval("(function() { var counter = " + this.props.loopCounter + "; " + transpiled + "return draw;})");
                 if (result) {
-                    result()(u8g2);
+                    result()(this.u8g2);
                     this.props.onEvalError();
                 }
             } catch (e) {

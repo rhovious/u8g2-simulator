@@ -22,9 +22,9 @@ export const transpile = (code: string) => {
         }
         line = line.replace(/(U8G2_[a-zA-Z0-9_-]*)/g, "\"$1\"");
         line = line.replace(/(u8g2_font_[a-zA-Z0-9_-]*)/g, "\"$1\"");
-
         return line;
     });
 
+    console.log(lines.join("\n"));
     return lines.join("\n");
 };

@@ -51,7 +51,11 @@ module.exports = {
         new CopyWebpackPlugin([
             {
                 from: 'node_modules/monaco-editor/min/vs',
-                to: 'vs',
+                to: 'vs'
+            },
+            {
+                from: 'src/bdf',
+                to: 'bdf'
             }
         ])
     ]

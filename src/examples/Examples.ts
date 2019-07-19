@@ -11,7 +11,7 @@ export const INTRO: CodeExample = {
         "\n    u8g2.setDrawColor(1);" +
         "\n    u8g2.drawPixel(1, 0);" +
         "\n    u8g2.drawPixel(3, 0);" +
-        "\n    u8g2.setFont(u8g2_font_timR12_tf);" +
+        "\n    u8g2.setFont(u8g2_font_5x8);" +
         "\n    u8g2.drawStr(1,16,\"Hi, this editor supports\");" +
         "\n    u8g2.drawStr(1,32,\"a tiny bit of C++ transp.\");" +
         "\n    u8g2.drawStr(1,48,\"but it is infact javascript\");" +
@@ -46,7 +46,7 @@ const BATTERY_SIGNAL: CodeExample = {
         "\n" +
         "\nvoid draw(U8G2 u8g2) {" +
         "\n    u8g2.setDrawColor(1);" +
-        "\n    u8g2.setFont(u8g2_font_courR12_tf);" +
+        "\n    u8g2.setFont(u8g2_font_5x8);" +
         "\n    u8g2.drawStr(2,12,\"Battery: \");" +
         "\n    u8g2.drawStr(2,44,\"Signal: \");" +
         "\n    drawBattery(u8g2, 70,4,12,20,5,counter%6);" +
@@ -84,7 +84,7 @@ const WEATHER_CLOCK: CodeExample = {
     name: "Weather / Clock",
     code:
         "\nvoid drawLabelTop(U8G2 u8g2, uint8_t day) {" +
-        "\n    u8g2.setFont(u8g2_font_courR10_tf);" +
+        "\n    u8g2.setFont(u8g2_font_5x8);" +
         "\n    switch(day) {" +
         "\n        case 0:" +
         "\n                u8g2.drawStr(46,8 ,\"Monday\");" +
@@ -131,20 +131,20 @@ const WEATHER_CLOCK: CodeExample = {
         "\n}" +
         "\n" +
         "\nvoid drawTime(U8G2 u8g2) {" +
-        "\n    u8g2.setFont(u8g2_font_courB24_tf);" +
+        "\n    u8g2.setFont(u8g2_font_5x8);" +
         "\n" +
         "\n    u8g2.drawStr(28, 41, \"08:\" + (counter % 60 < 10 ? \"0\": \"\") + counter % 60);" +
         "\n}" +
         "\n" +
         "\nvoid drawTemp(U8G2 u8g2, float value) {" +
-        "\n    u8g2.setFont(u8g2_font_courB12_tf);" +
+        "\n    u8g2.setFont(u8g2_font_5x8);" +
         "\n    u8g2.drawStr(1, u8g2.getDisplayHeight()-1, \"\" + value + \"C\");" +
         "\n" +
         "\n    u8g2.drawRFrame(-4, u8g2.getDisplayHeight()-11, 64,24, 4);" +
         "\n}" +
         "\n" +
         "\nvoid drawPres(U8G2 u8g2, float value) {" +
-        "\n    u8g2.setFont(u8g2_font_courB12_tf);" +
+        "\n    u8g2.setFont(u8g2_font_5x8);" +
         "\n    u8g2.drawStr(u8g2.getDisplayWidth() - (\"\" + value).length*10 +2, u8g2.getDisplayHeight()-1, \"\" + value + \"mb\");" +
         "\n" +
         "\n    u8g2.drawRFrame(u8g2.getDisplayWidth()/2+4, u8g2.getDisplayHeight()-11, 64,24, 4);" +
@@ -168,23 +168,23 @@ const CONFIG_SCREEN: CodeExample = {
         "\nvar menu = [\"General\", \"Wifi\", \"Time\", \"Sensors\", \"Logging\"];" +
         "\n" +
         "\nvoid drawMenu(U8G2 u8g2, uint8_t selected) {" +
-        "\n    u8g2.setFont(u8g2_font_courB10_tf);" +
+        "\n    u8g2.setFont(u8g2_font_5x8);" +
         "\n" +
         "\n    u8g2.drawStr(1,8, \"Config:\");" +
         "\n    u8g2.drawHLine(0,11,100);" +
         "\n    for (uint8_t i = 0; i < 5; i++) {" +
         "\n        if (selected == i) {" +
-        "\n            u8g2.setFont(u8g2_font_courB10_tf);" +
+        "\n            u8g2.setFont(u8g2_font_5x8);" +
         "\n            u8g2.drawStr(1,10*(i+2)+1, \"> \");" +
         "\n        } else {" +
-        "\n            u8g2.setFont(u8g2_font_courR10_tf);" +
+        "\n            u8g2.setFont(u8g2_font_5x8);" +
         "\n        }" +
         "\n        u8g2.drawStr(10,10*(i+2)+1, menu[i]);" +
         "\n    }" +
         "\n}" +
         "\n" +
         "\nvoid drawButtons(U8G2 u8g2) {" +
-        "\n    u8g2.setFont(u8g2_font_courR10_tf);" +
+        "\n    u8g2.setFont(u8g2_font_5x8);" +
         "\n    u8g2.drawRFrame(96+4, 54, 32, 16, 4);" +
         "\n    u8g2.drawRFrame(96+4, -4, 32, 16, 4);" +
         "\n    u8g2.drawStr(103,8, \"Exit\");" +

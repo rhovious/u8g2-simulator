@@ -10,10 +10,11 @@ import { Columns } from "bloomer/lib/grid/Columns";
 import { DisplayPanel } from "../ui-elements/display-panel";
 import { CodePanel, ErrorCallback } from "../ui-elements/code-panel";
 import { ZoomLevel } from "../ui-elements/zoom-selection-menu";
+import { FontPanel } from "../ui-elements/font-panel";
 
 export class Editor extends React.Component<{}, EditorState> {
 
-    constructor(props: { }, private code: string) {
+    constructor(props: {}, private code: string) {
         super(props);
         this.code = examples[0].code;
 
@@ -83,12 +84,12 @@ export class Editor extends React.Component<{}, EditorState> {
     }
 
     hookErrorCallback(cb: ErrorCallback) {
-        this.setState({ errorCallback : cb });
+        this.setState({ errorCallback: cb });
     }
 
     onEvalError(e?: Error) {
         if (this.state.errorCallback) {
-            this.state.errorCallback( e ? e.message : "");
+            this.state.errorCallback(e ? e.message : "");
         }
     }
 
@@ -146,7 +147,8 @@ export class Editor extends React.Component<{}, EditorState> {
                             onCodeChange={this.onCodeChange}
                             onExec={this.onExec}
 
-                            />
+                        />
+                        <FontPanel />
                     </Column>
                 </Columns>
             </div>

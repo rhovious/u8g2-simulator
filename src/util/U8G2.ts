@@ -9,38 +9,21 @@ export type CIRC_OPT =
     "U8G2_DRAW_LOWER_RIGHT" |
     "U8G2_DRAW_ALL";
 
-export const adobeFontMapper = (font: string) => {
-    // u8g2_font_[]_tf
-    const parts = font.split("_");
-    let f = parts[2];
-    let fontName = "Courier";
-    if (f.startsWith("cour")) {
-        fontName = "Courier";
-        f = f.substring(4);
-    } else if (f.startsWith("helv")) {
-        fontName = "Helvetica";
-        f = f.substring(4);
-    } else if (f.startsWith("tim")) {
-        fontName = "Times New Roman";
-        f = f.substring(3);
-    }
-
-    if (f.startsWith("B")) {
-        return "bold " + f.split("B")[1] + "px " + fontName;
-    } else if (f.startsWith("R")) {
-        return f.split("R")[1] + "px " + fontName;
-    }
-
-    return "08px Courier";
-};
+export interface FontMap {
+    [key: string]: {
+        bdfFont: { drawText(ctx: CanvasRenderingContext2D, str: string, x: number, y: number): void } | null
+    };
+}
 
 export class U8G2 {
     private drawColor = 0;
-    // private font: string = adobeFontMapper("u8g2_font_courR08_tf");
+    private font: string = "";
+    private bdfFonts: FontMap = {};
 
     constructor(private ctx: CanvasRenderingContext2D, private display: Display) {
         this.ctx.lineWidth = 1;
         this.ctx.imageSmoothingEnabled = false;
+        console.log("CREATED NEW ... :(");
     }
 
     clear() {
@@ -603,13 +586,36 @@ export class U8G2 {
     }
 
     setFont(font: string) {
-        // this.font = font; // adobeFontMapper(font);
+        this.font = font;
     }
 
     drawStr(x: number, y: number, str: string) {
-        console.log(courB12);
-        const font = new BDFFont.BDFFont(courB12);
-        font.drawText(this.ctx, str, x, y - 1);
+        const fontName = this.font.slice("u8g2_font_".length);
+        const bdfFont = this.bdfFonts[fontName] && this.bdfFonts[fontName].bdfFont;
+
+        if (bdfFont) {
+            console.log("font loaded");
+            bdfFont.drawText(this.ctx, str, x, y - 1);
+        } else if (!this.bdfFonts[fontName]) {
+            const fetchFont = (fName: string) => {
+                fetch("./bdf/" + fName + ".bdf")
+                    .then(resp => resp.text())
+                    .then(text => {
+                        console.log("got font", text.length);
+                        this.bdfFonts[fName] = { bdfFont: new BDFFont.BDFFont(text) };
+                    })
+                    .catch(e => console.log(e));
+            };
+            // fetch font from server
+            this.bdfFonts[fontName] = { bdfFont: null };
+            fetchFont(fontName);
+
+            const font = new BDFFont.BDFFont(courB12);
+            font.drawText(this.ctx, str, x, y - 1);
+        } else {
+            const font = new BDFFont.BDFFont(courB12);
+            font.drawText(this.ctx, str, x, y - 1);
+        }
     }
 
     setDrawColor(color: number) {
