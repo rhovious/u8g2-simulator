@@ -593,16 +593,13 @@ export class U8G2 {
         const bdfFont = this.bdfFonts[fontName] && this.bdfFonts[fontName].bdfFont;
 
         if (bdfFont) {
-            console.log("font loaded");
             bdfFont.drawText(this.ctx, str, x, y - 1);
         } else if (!this.bdfFonts[fontName]) {
             const fetchFont = (fName: string) => {
                 fetch("./bdf/" + fName + ".bdf")
                     .then(resp => resp.text())
                     .then(text => {
-                        console.log("got font", text.length);
                         this.bdfFonts[fName] = { bdfFont: new BDFFont.BDFFont(text) };
-                        console.log(this.bdfFonts[fName]);
                     })
                     .catch(e => console.log(e));
             };
