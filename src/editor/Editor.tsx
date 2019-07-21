@@ -64,6 +64,7 @@ export class Editor extends React.Component<{}, EditorState> {
 
     setCodeExample(e: CodeExample) {
         this.code = e.code;
+        this.onExec();
     }
 
     onCodeChange(updatedCode: string) {

@@ -12,6 +12,10 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.raw.cpp$/i,
+                use: 'raw-loader',
+            },
+            {
                 test: /.bdf$/,
                 use: 'raw-loader',
                 exclude: /node_modules/,
