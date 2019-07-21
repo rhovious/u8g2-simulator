@@ -401,7 +401,7 @@ export class U8G2 {
             if (y0 < y1) {
                 this.drawVLine(x0, y0, y1 - y0);
             } else {
-                this.drawVLine(x0, y1, y0 - y1);
+                this.drawVLine(x1, y1, y0 - y1);
             }
             return;
         }
@@ -411,33 +411,65 @@ export class U8G2 {
             if (x0 < x1) {
                 this.drawHLine(x0, y0, x1 - x0);
             } else {
-                this.drawHLine(x1, y0, x0 - x1);
+                this.drawHLine(x1, y1, x0 - x1);
             }
             return;
         }
 
         const w = Math.abs(x1 - x0);
-        const s = w / Math.abs(y1 - y0);
+        const h = Math.abs(y1 - y0);
+        // let s = Math.floor(w / Math.abs(y1 - y0));
+        // s = s === 0 ? 1 : s;
 
-        if (x0 < x1) {
-            let y = 0;
-            for (let x = 0; x < w; x += s) {
-                this.drawHLine(x0 + x, y0 + y, s);
-                if (y0 < y1) {
-                    y++;
-                } else {
-                    y--;
+
+        if (h > w) {
+            const s = w / Math.abs(y1 - y0);
+            // line is higher than wide:
+            if (x0 < x1) {
+                let y = 0;
+                for (let x = 0; x < w; x += s) {
+                    this.drawHLine(x0 + x, y0 + y, s);
+                    if (y0 < y1) {
+                        y++;
+                    } else {
+                        y--;
+                    }
                 }
             }
-        }
-        if (x0 > x1) {
-            let y = 0;
-            for (let x = 0; x < w; x += s) {
-                this.drawHLine(x1 + x, y1 + y, s);
-                if (y0 > y1) {
-                    y++;
-                } else {
-                    y--;
+            if (x0 > x1) {
+                let y = 0;
+                for (let x = 0; x < w; x += s) {
+                    this.drawHLine(x1 + x, y1 + y, s);
+                    if (y0 > y1) {
+                        y++;
+                    } else {
+                        y--;
+                    }
+                }
+            }
+        } else {
+            const s = h / Math.abs(x1 - x0);
+            // line is wider than high:
+            if (y0 < y1) {
+                let x = 0;
+                for (let y = 0; y < h; y += s) {
+                    this.drawVLine(x0 + x, y0 + y, s);
+                    if (x0 < x1) {
+                        x++;
+                    } else {
+                        x--;
+                    }
+                }
+            }
+            if (y0 > y1) {
+                let x = 0;
+                for (let y = 0; y < h; y += s) {
+                    this.drawVLine(x1 + x, y1 + y, s);
+                    if (x0 > x1) {
+                        x++;
+                    } else {
+                        x--;
+                    }
                 }
             }
         }
