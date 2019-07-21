@@ -3,6 +3,7 @@ import ugly_bird from "./ugly_bird.raw.cpp";
 import intro from "./intro.raw.cpp";
 import weather_clock from "./weather_clock.raw.cpp";
 import config_screen from "./config_screen.raw.cpp";
+import ui_elements from "./ui_elements.raw.cpp";
 
 export interface CodeExample {
     name: string;
@@ -29,5 +30,9 @@ export const examples: CodeExample[] = [
     {
         name: "Config Screen",
         code: config_screen
+    },
+    {
+        name: "UI Elements",
+        code: ui_elements
     }
 ];

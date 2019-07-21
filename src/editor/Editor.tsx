@@ -23,7 +23,7 @@ export class Editor extends React.Component<{}, EditorState> {
             isLooping: false,
             counter: 0,
             fps: 4,
-            zoom: ZoomLevel.ONE
+            zoom: ZoomLevel.TWO
         };
 
         this.loop = this.loop.bind(this);

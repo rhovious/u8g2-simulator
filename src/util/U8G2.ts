@@ -23,7 +23,6 @@ export class U8G2 {
     constructor(private ctx: CanvasRenderingContext2D, private display: Display) {
         this.ctx.lineWidth = 1;
         this.ctx.imageSmoothingEnabled = false;
-        console.log("CREATED NEW ... :(");
     }
 
     clear() {
@@ -603,6 +602,7 @@ export class U8G2 {
                     .then(text => {
                         console.log("got font", text.length);
                         this.bdfFonts[fName] = { bdfFont: new BDFFont.BDFFont(text) };
+                        console.log(this.bdfFonts[fName]);
                     })
                     .catch(e => console.log(e));
             };
@@ -671,6 +671,40 @@ export class U8G2 {
                     this.drawPixel(x + x0, y + y0);
                 }
             }
+        }
+    }
+
+    getMaxCharWidth() {
+        const fontName = this.font.slice("u8g2_font_".length);
+        const bdfFont = this.bdfFonts[fontName] && this.bdfFonts[fontName].bdfFont;
+
+        if (bdfFont) {
+            let bf = (bdfFont as any);
+
+            if (!bf.getMaxCharWidth) {
+                let max = 0;
+                Object.keys(bf.glyphs).forEach(key => {
+                    let g = bf.glyphs[key];
+
+                    if (g.DWIDTH.x > max) {
+                        max = g.DWIDTH.x;
+                    }
+                });
+                bf.getMaxCharWidth = max;
+            }
+
+            return bf.getMaxCharWidth;
+        }
+    }
+
+    getMaxCharHeight() {
+        const fontName = this.font.slice("u8g2_font_".length);
+        const bdfFont = this.bdfFonts[fontName] && this.bdfFonts[fontName].bdfFont;
+
+        if (bdfFont) {
+            let bf = (bdfFont as any);
+
+            return bf.SIZE.size;
         }
     }
 }

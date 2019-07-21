@@ -15,16 +15,20 @@ export const transpile = (code: string) => {
             line = line.replace(/u?int((8|16|32)_t)? /g, "");
             line = line.replace(/float /g, "");
             line = line.replace(/double /g, "");
+            line = line.replace(/String /g, "");
+            line = line.replace(/bool /g, "");
         } else {
             line = line.replace(/u?int((8|16|32)_t)? /g, "var ");
             line = line.replace(/float /g, "var ");
             line = line.replace(/double /g, "var ");
+            line = line.replace(/bool /g, "var ");
+
         }
         line = line.replace(/(U8G2_[a-zA-Z0-9_-]*)/g, "\"$1\"");
         line = line.replace(/(u8g2_font_[a-zA-Z0-9_-]*)/g, "\"$1\"");
+        line = line.replace(/\.length\(\)/g, ".length");
         return line;
     });
 
-    console.log(lines.join("\n"));
     return lines.join("\n");
 };
