@@ -25,14 +25,17 @@ export const transpile = (code: string) => {
 
         }
         line = line.replace(/(U8G2_[a-zA-Z0-9_-]*)/g, "\"$1\"");
+        line = line.replace(/_tf/g, "");
         line = line.replace(/(u8g2_font_[a-zA-Z0-9_-]*)/g, "\"$1\"");
         line = line.replace(/\.length\(\)/g, ".length");
         line = line.replace(/sin\(/g, "Math.sin(");
         line = line.replace(/cos\(/g, "Math.cos(");
         line = line.replace(/PI/g, "Math.PI");
+        line = line.replace(/\.c_str\(\)/g, "");
 
         return line;
     });
 
+    console.log(lines.join("\n"));
     return lines.join("\n");
 };
