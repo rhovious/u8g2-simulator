@@ -421,7 +421,6 @@ export class U8G2 {
         // let s = Math.floor(w / Math.abs(y1 - y0));
         // s = s === 0 ? 1 : s;
 
-
         if (h > w) {
             const s = w / Math.abs(y1 - y0);
             // line is higher than wide:
