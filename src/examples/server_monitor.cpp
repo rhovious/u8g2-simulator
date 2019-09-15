@@ -14,25 +14,6 @@ void progressBar(U8G2 u8g2, uint8_t x, uint8_t y, uint8_t width, uint8_t height,
     u8g2.drawBox(x + 2, y + 2, (width - 4) * (percent / 100.0), height - 4);
 }
 
-void button(U8G2 u8g2, uint8_t x, uint8_t y, uint8_t width, String str, bool clicked)
-{
-    if (clicked)
-    {
-        u8g2.setDrawColor(1);
-        u8g2.drawRBox(x, y + 1, width, u8g2.getMaxCharHeight() + 4, 2);
-        u8g2.setDrawColor(0);
-        u8g2.setFont(u8g2_font_5x8_tf);
-        u8g2.drawStr(x + (width / 2) - ((String(str).length() * (u8g2.getMaxCharWidth())) / 2), y + u8g2.getMaxCharHeight() + 3, str.c_str());
-    }
-    else
-    {
-        u8g2.setDrawColor(1);
-        u8g2.drawRFrame(x, y, width, u8g2.getMaxCharHeight() + 6, 4);
-        u8g2.setFont(u8g2_font_5x8_tf);
-        u8g2.drawStr(x + (width / 2) - ((String(str).length() * (u8g2.getMaxCharWidth())) / 2), y + u8g2.getMaxCharHeight() + 2, str.c_str());
-    }
-}
-
 void gauge(U8G2 u8g2, uint8_t x, uint8_t y, uint8_t r, uint8_t percent)
 {
     uint8_t rx = x + r;
