@@ -4,6 +4,7 @@ import intro from "./intro.raw.cpp";
 import weather_clock from "./weather_clock.raw.cpp";
 import config_screen from "./config_screen.raw.cpp";
 import ui_elements from "./ui_elements.raw.cpp";
+import server_monitor from "./server_monitor.cpp";
 
 export interface CodeExample {
     name: string;
@@ -34,5 +35,9 @@ export const examples: CodeExample[] = [
     {
         name: "UI Elements",
         code: ui_elements
+    },
+    {
+        name: "Server Monitor",
+        code: server_monitor
     }
 ];
