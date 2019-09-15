@@ -49,26 +49,33 @@ void dialog(U8G2 u8g2, uint8_t x, uint8_t y, uint8_t width, uint8_t height, Stri
     u8g2.setFont(u8g2_font_5x8_tf);
     u8g2.drawStr(x + (width / 2) - ((String(title).length() * (u8g2.getMaxCharWidth())) / 2) , y + u8g2.getMaxCharHeight(), title.c_str());
     u8g2.drawHLine(x, y + u8g2.getMaxCharHeight()+1, width);
-    
-    u8g2.drawStr(x +2 , y + u8g2.getMaxCharHeight()*2+1, msg.c_str());
 }
 
 void draw(U8G2 u8g2)
 {
     u8g2.setDrawColor(1);
     u8g2.setFont(u8g2_font_5x8_tf);
+    u8g2.drawStr(3, 18, "Uptime: 12d10h08m");
+
+    u8g2.setFont(u8g2_font_4x6_tf);
+    int x = 0;
+    int y = 27
+    u8g2.drawStr(6 +x, y, "1");
+    gauge(u8g2, 8+x, y+10,16, counter % 100);
+    u8g2.drawStr(44+x, y, "5");
+    gauge(u8g2, 48+x, y+10,16, counter % 100);
+    u8g2.drawStr(83+x, y, "15");
+    gauge(u8g2, 88+x, y+10,16, counter % 100);
+
+    u8g2.setFont(u8g2_font_5x8_tf);
+
+
     u8g2.drawStr(3, 60,"HDD:");
     progressBar(u8g2, 30, 52, 76, 10, counter % 101);
 
     u8g2.drawStr(3, 48,"RAM:");
     progressBar(u8g2, 30, 40, 76, 10, counter % 101);
 
-    u8g2.setDrawColor(1);
-    u8g2.setFont(u8g2_font_5x8_tf);
-    u8g2.drawStr(3, 18, "Load:");
-    gauge(u8g2, 12, 36,16, counter % 100);
-    gauge(u8g2, 48, 36,16, counter % 100);
-    gauge(u8g2, 84, 36,16, counter % 100);
 
     dialog(u8g2, 0,0, 128, 64, String("192.168.1.33"));
 }
