@@ -64,7 +64,8 @@ void draw(U8G2 u8g2)
 
     u8g2.setFont(u8g2_font_4x6_tf);
     int x = 0;
-    int y = 27 u8g2.drawStr(6 + x, y, "1");
+    int y = 27;
+    u8g2.drawStr(6 + x, y, "1");
     gauge(u8g2, 8 + x, y + 10, 16, counter % 100);
     u8g2.drawStr(44 + x, y, "5");
     gauge(u8g2, 48 + x, y + 10, 16, counter % 100);
