@@ -25,6 +25,10 @@ export class U8G2 {
         this.ctx.imageSmoothingEnabled = false;
     }
 
+    getDisplay() {
+        return this.display;
+    }
+
     clear() {
         let t = this.drawColor;
         this.setDrawColor(this.display.resetColor);

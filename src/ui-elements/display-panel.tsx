@@ -52,7 +52,8 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
             this.ctx.fillStyle = this.props.display.getColorValue(this.props.display.resetColor);
             this.ctx.fillRect(0, 0, this.props.display.width, this.props.display.height);
 
-            if (this.u8g2 === null) {
+            if (this.u8g2 === null
+                || this.u8g2.getDisplay() !== this.props.display) {
                 this.u8g2 = new U8G2(this.ctx, this.props.display);
             }
 

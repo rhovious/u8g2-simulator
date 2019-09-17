@@ -42,5 +42,20 @@ export const nokia5110: Display = {
         }
     }
 };
+export const flexEpaper: Display = {
+    name: "Flex Epaper 2.13",
+    width: 104,
+    height: 212,
+    resetColor: 0,
+    getColorValue: (color: number) => {
+        switch (color) {
+            case 0: return "#ffffff";
+            case 1: return "#222222";
+            default:
+                return "#FF0000";
+        }
+    }
+};
 
-export const displays = [oled128x64, oled128x32, nokia5110];
+
+export const displays = [oled128x64, oled128x32, nokia5110, flexEpaper];
