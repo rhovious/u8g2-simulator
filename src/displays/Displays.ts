@@ -57,5 +57,4 @@ export const flexEpaper: Display = {
     }
 };
 
-
 export const displays = [oled128x64, oled128x32, nokia5110, flexEpaper];
