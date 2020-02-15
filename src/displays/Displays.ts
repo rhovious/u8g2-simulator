@@ -5,13 +5,9 @@ export const oled128x64: Display = {
     width: 128,
     height: 64,
     resetColor: 0,
-    getColorValue: (color: number) => {
-        switch (color) {
-            case 0: return "#000000";
-            case 1: return "#ffffff";
-            default:
-                return "#FF0000";
-        }
+    colorMap: {
+        0: "#000000",
+        1: "#ffffff"
     }
 };
 export const oled128x32: Display = {
@@ -19,42 +15,53 @@ export const oled128x32: Display = {
     width: 128,
     height: 32,
     resetColor: 0,
-    getColorValue: (color: number) => {
-        switch (color) {
-            case 0: return "#000000";
-            case 1: return "#ffffff";
-            default:
-                return "#FF0000";
-        }
+    colorMap: {
+        0: "#000000",
+        1: "#ffffff"
     }
 };
+
+export const oled128x128: Display = {
+    name: "OLED 128x128",
+    width: 128,
+    height: 128,
+    resetColor: 0,
+    colorMap: {
+        0: "#000000",
+        1: "#ffffff"
+    }
+};
+
 export const nokia5110: Display = {
     name: "Nokia 5110",
     width: 84,
     height: 48,
     resetColor: 0,
-    getColorValue: (color: number) => {
-        switch (color) {
-            case 0: return "#616A4B";
-            case 1: return "#222222";
-            default:
-                return "#FF0000";
-        }
+    colorMap: {
+        0: "#616A4B",
+        1: "#222222"
     }
 };
 export const flexEpaper: Display = {
-    name: "Flex Epaper 2.13",
+    name: "Flex Epaper 2.13 (104x212)",
     width: 104,
     height: 212,
     resetColor: 0,
-    getColorValue: (color: number) => {
-        switch (color) {
-            case 0: return "#ffffff";
-            case 1: return "#222222";
-            default:
-                return "#FF0000";
-        }
+    colorMap: {
+        0: "#ffffff",
+        1: "#222222"
     }
 };
 
-export const displays = [oled128x64, oled128x32, nokia5110, flexEpaper];
+export const epaper154: Display = {
+    name: "Epaper 1.54 (200x200)",
+    width: 200,
+    height: 200,
+    resetColor: 0,
+    colorMap: {
+        0: "#ffffff",
+        1: "#222222"
+    }
+};
+
+export const displays = [oled128x64, oled128x32, oled128x128, nokia5110, flexEpaper, epaper154];

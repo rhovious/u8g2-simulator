@@ -481,7 +481,7 @@ export class U8G2 {
     drawPixel(x: number, y: number) {
         const id = this.ctx.createImageData(1, 1);
         const d = id.data;
-        const hexColor = this.display.getColorValue(this.drawColor);
+        const hexColor = this.display.colorMap[this.drawColor];
         d[0] = parseInt(hexColor.slice(1, 1 + 2), 16);
         d[1] = parseInt(hexColor.slice(3, 3 + 2), 16);
         d[2] = parseInt(hexColor.slice(5, 5 + 2), 16);
@@ -651,8 +651,8 @@ export class U8G2 {
     }
 
     setDrawColor(color: number) {
-        this.ctx.fillStyle = this.display.getColorValue(color);
-        this.ctx.strokeStyle = this.display.getColorValue(color);
+        this.ctx.fillStyle = this.display.colorMap[color];
+        this.ctx.strokeStyle = this.display.colorMap[color];
         this.drawColor = color;
     }
 
