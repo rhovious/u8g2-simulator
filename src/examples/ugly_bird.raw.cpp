@@ -19,5 +19,5 @@ void drawBird(U8G2 u8g2, uint8_t x0, uint8_t y0, uint8_t state) {
 void draw(U8G2 u8g2) {
     u8g2.setDrawColor(1);
 
-    drawBird(u8g2, 30, Math.sin(counter/4)*8+20);
+    drawBird(u8g2, 30, sin(counter/4)*8+20);
 }

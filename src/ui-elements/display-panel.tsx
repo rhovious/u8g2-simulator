@@ -82,7 +82,6 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
     }
 
     render() {
-        console.log("last counter", this.state.lastCounter, this.props.loopCounter);
         if (this.state.lastCounter !== this.props.loopCounter) {
             this.redraw();
         }

@@ -35,7 +35,5 @@ export const transpile = (code: string) => {
 
         return line;
     });
-
-    console.log(lines.join("\n"));
     return lines.join("\n");
 };

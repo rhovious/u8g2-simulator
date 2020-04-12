@@ -71,8 +71,6 @@ export class Editor extends React.Component<{}, EditorState> {
     }
 
     loop() {
-        console.log("loop", this.state.counter);
-
         this.setState(prev => ({ counter: prev.counter + 1 }));
         // this.redraw();
         if (this.state.isLooping) {

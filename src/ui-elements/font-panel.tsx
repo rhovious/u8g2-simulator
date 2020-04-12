@@ -21,7 +21,6 @@ export class FontPanel extends React.Component<{}, FontPanelState> {
     onSearchChange(event: React.ChangeEvent<HTMLInputElement>) {
         const searchString = event.target.value;
         const displayedFonts = this.state.fonts.filter(fname => fname.indexOf(searchString) >= 0).map(f => "u8g2_font_" + f);
-        console.log(searchString, displayedFonts);
         this.setState({ searchString, displayedFonts });
     }
     render() {

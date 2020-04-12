@@ -623,13 +623,13 @@ export class U8G2 {
         this.font = font;
     }
 
-    drawStr(x: number, y: number, str: string) {
+    private _loadFont() {
         const fontName = this.font.slice("u8g2_font_".length);
         const bdfFont = this.bdfFonts[fontName] && this.bdfFonts[fontName].bdfFont;
 
         if (bdfFont) {
-            bdfFont.drawText(this.ctx, str, x, y - 1);
-        } else if (!this.bdfFonts[fontName]) {
+            return bdfFont;
+        } else {
             const fetchFont = (fName: string) => {
                 fetch("./bdf/" + fName + ".bdf")
                     .then(resp => resp.text())
@@ -642,11 +642,20 @@ export class U8G2 {
             this.bdfFonts[fontName] = { bdfFont: null };
             fetchFont(fontName);
 
-            const font = new BDFFont.BDFFont(courB12);
-            font.drawText(this.ctx, str, x, y - 1);
-        } else {
-            const font = new BDFFont.BDFFont(courB12);
-            font.drawText(this.ctx, str, x, y - 1);
+            // return dummy until loaded
+            return new BDFFont.BDFFont(courB12);
+        }
+    }
+
+    drawStr(x: number, y: number, str: string) {
+        const bdfFont = this._loadFont();
+        bdfFont.drawText(this.ctx, str, x, y - 1);
+    }
+
+    drawGlyph(x: number, y: number, encoding: number) {
+        const bdfFont = this._loadFont();
+        if (bdfFont.getGlyphOf(encoding)) {
+            bdfFont.drawChar(this.ctx, encoding, x, y - 1);
         }
     }
 
