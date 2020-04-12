@@ -5,8 +5,7 @@ import { examples, CodeExample } from "../examples/Examples";
 import { oled128x64 } from "../displays/Displays";
 import { Display } from "../displays/DisplayApi";
 import { DocumentationPanel } from "../ui-elements/documentation-panel";
-import { Column } from "bloomer/lib/grid/Column";
-import { Columns } from "bloomer/lib/grid/Columns";
+import { Columns } from "react-bulma-components";
 import { DisplayPanel } from "../ui-elements/display-panel";
 import { CodePanel, ErrorCallback } from "../ui-elements/code-panel";
 import { ZoomLevel } from "../ui-elements/zoom-selection-menu";
@@ -105,8 +104,8 @@ export class Editor extends React.Component<{}, EditorState> {
     render() {
         return (
             <div className="main">
-                <Columns isCentered>
-                    <Column isSize="1/4">
+                <Columns centered>
+                    <Columns.Column size="one-quarter">
                         <DisplayPanel
                             title={"Preview (" + this.state.display.name + ")(" + this.state.counter + ")"}
                             icon="fa-tv"
@@ -126,8 +125,8 @@ export class Editor extends React.Component<{}, EditorState> {
                             zoom={this.state.zoom}
                         />
                         {DocumentationPanel({ title: "Documentation", icon: "fa-file" })}
-                    </Column>
-                    <Column isSize="3/4">
+                    </Columns.Column>
+                    <Columns.Column size="three-quarters">
                         <CodePanel
                             title="Code"
                             icon="fa-code"
@@ -150,7 +149,7 @@ export class Editor extends React.Component<{}, EditorState> {
 
                         />
                         <FontPanel />
-                    </Column>
+                    </Columns.Column>
                 </Columns>
             </div>
         );

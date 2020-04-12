@@ -1,8 +1,5 @@
 import * as React from "react";
-import { Input } from "bloomer/lib/elements/Form/Input";
-import { NavbarItem } from "bloomer/lib/components/Navbar/NavbarItem";
-import { NavbarLink } from "bloomer/lib/components/Navbar/NavbarLink";
-import { NavbarDropdown } from "bloomer/lib/components/Navbar/NavbarDropdown";
+import { Form, Navbar } from "react-bulma-components";
 
 export interface LoopSelectorProps {
     setFps(i: number): void;
@@ -11,17 +8,17 @@ export interface LoopSelectorProps {
 
 export const LoopSelector = (props: LoopSelectorProps) => {
     return (
-        <NavbarItem hasDropdown isHoverable>
-            <NavbarLink >Loop Settings</NavbarLink>
-            <NavbarDropdown>
-                <Input
+        <Navbar.Item dropdown hoverable>
+            <Navbar.Link >Loop Settings</Navbar.Link>
+            <Navbar.Dropdown>
+                <Form.Input
                     type="text"
                     placeholder="fps"
-                    value={props.fps}
+                    value={"" + props.fps}
                     className="small-input"
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => props.setFps(parseInt(event.target.value, 10))} />
-            </NavbarDropdown>
-        </NavbarItem>
+            </Navbar.Dropdown>
+        </Navbar.Item>
 
         // <Dropdown isActive={props.isActive}>
         //     <DropdownTrigger>

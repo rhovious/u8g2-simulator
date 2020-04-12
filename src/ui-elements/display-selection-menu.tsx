@@ -1,9 +1,7 @@
 import * as React from "react";
 import { Display } from "../displays/DisplayApi";
 import { displays } from "../displays/Displays";
-import { NavbarItem } from "bloomer/lib/components/Navbar/NavbarItem";
-import { NavbarLink } from "bloomer/lib/components/Navbar/NavbarLink";
-import { NavbarDropdown } from "bloomer/lib/components/Navbar/NavbarDropdown";
+import { Navbar } from "react-bulma-components";
 
 export interface DisplaySelectorProps {
     setDisplay(d: Display): void;
@@ -11,13 +9,13 @@ export interface DisplaySelectorProps {
 
 export const DisplaySelector = (props: DisplaySelectorProps) => {
     return (
-        <NavbarItem hasDropdown isHoverable>
-            <NavbarLink >Screen</NavbarLink>
-            <NavbarDropdown>
+        <Navbar.Item dropdown={true} hoverable={true}>
+            <Navbar.Link >Screen</Navbar.Link>
+            <Navbar.Dropdown>
                 {
-                    displays.map(d => <NavbarItem key={d.name} onClick={() => props.setDisplay(d)}>{d.name}</NavbarItem>)
+                    displays.map(d => <Navbar.Item key={d.name} onClick={() => props.setDisplay(d)}>{d.name}</Navbar.Item>)
                 }
-            </NavbarDropdown>
-        </NavbarItem>
+            </Navbar.Dropdown>
+        </Navbar.Item>
     );
 };

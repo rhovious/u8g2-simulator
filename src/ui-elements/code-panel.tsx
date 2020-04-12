@@ -1,19 +1,9 @@
 import * as React from "react";
 import MonacoEditor from "react-monaco-editor";
-import { Icon } from "bloomer/lib/elements/Icon";
-import { Panel } from "bloomer/lib/components/Panel/Panel";
-import { PanelBlock } from "bloomer/lib/components/Panel/PanelBlock";
-import { PanelHeading } from "bloomer/lib/components/Panel/PanelHeading";
+import { Icon, Panel, Navbar, Notification, Container } from "react-bulma-components";
 import { PanelProps } from "./panel";
 import { LoopSelectorProps, LoopSelector } from "./loop-selector";
 import { ExampleSelectorProps, ExampleSelector } from "./example-selection-menu";
-import { NavbarItem } from "bloomer/lib/components/Navbar/NavbarItem";
-import { Navbar } from "bloomer/lib/components/Navbar/Navbar";
-import { NavbarMenu } from "bloomer/lib/components/Navbar/NavbarMenu";
-import { NavbarStart } from "bloomer/lib/components/Navbar/NavbarStart";
-import { NavbarEnd } from "bloomer/lib/components/Navbar/NavbarEnd";
-import { Notification } from "bloomer/lib/elements/Notification";
-import { Container } from "bloomer/lib/layout/Container";
 
 // this bit is ugly...
 export type ErrorCallback = (msg?: string) => void;
@@ -45,35 +35,35 @@ export class CodePanel extends React.Component<CodePanelProps, CodePanelState> {
     render() {
         return (
             <Panel>
-                <PanelHeading>
+                <Panel.Header>
                     <Icon className={"fa " + this.props.icon} style={{ marginRight: "8px" }} />{this.props.title}
-                </PanelHeading>
+                </Panel.Header>
                 <Navbar style={{ border: "solid 1px rgb(219,219,219)", borderTop: "0px", margin: "0" }}>
-                    <NavbarMenu>
-                        <NavbarItem onClick={this.props.onExec}>
+                    <Navbar.Menu className="navbar-start">
+                        <Navbar.Item onClick={this.props.onExec}>
                             <Icon className="fa fa-cogs" />&nbsp;Eval
-                        </NavbarItem>
-                        <NavbarItem onClick={this.props.toggleLoop}>
+                        </Navbar.Item>
+                        <Navbar.Item onClick={this.props.toggleLoop}>
                             <Icon className={"fa " + (this.props.isLooping ? "fa-stop" : "fa-play")} />&nbsp;LoopEval
-                        </NavbarItem>
-                        <NavbarStart>
+                        </Navbar.Item>
+                        <Navbar.Menu>
                             {LoopSelector(this.props.loopSelectorProps)}
                             {ExampleSelector(this.props.exampleSelectorProps)}
-                        </NavbarStart>
-                        <NavbarEnd>
-                            <NavbarItem href="https://p3dt.net">
-                                <Icon className="fa fa-home" />
-                            </NavbarItem>
-                            <NavbarItem href="https://instagram.com/pauls_3d_things">
-                                <Icon className="fa fa-instagram" />
-                            </NavbarItem>
-                            <NavbarItem href="https://github.com/pauls-3d-things/u8g2-simulator">
-                                <Icon className="fa fa-github" />
-                            </NavbarItem>
-                        </NavbarEnd>
-                    </NavbarMenu>
+                        </Navbar.Menu>
+                    </Navbar.Menu>
+                    <Navbar.Menu className="navbar-end">
+                        <Navbar.Item onClick={() => window.open("https://p3dt.net", "_blank")} >
+                            <Icon className="fa fa-home" />
+                        </Navbar.Item>
+                        <Navbar.Item onClick={() => window.open("https://instagram.com/pauls_3d_things", "_blank")} >
+                            <Icon className="fa fa-instagram" />
+                        </Navbar.Item>
+                        <Navbar.Item onClick={() => window.open("https://github.com/pauls-3d-things/u8g2-simulator", "_blank")} >
+                            <Icon className="fa fa-github" />
+                        </Navbar.Item>
+                    </Navbar.Menu>
                 </Navbar>
-                <PanelBlock>
+                <Panel.Block>
                     {/* <Label></Label> */}
                     <MonacoEditor
                         width="100%"
@@ -90,8 +80,8 @@ export class CodePanel extends React.Component<CodePanelProps, CodePanelState> {
                             this.setState({ codeEditor: editor });
                         }}
                     />
-                </PanelBlock>
-                <PanelBlock>
+                </Panel.Block>
+                <Panel.Block>
                     <Container className="padLeft">
                         {
                             this.state.errorMessage ?
@@ -101,7 +91,7 @@ export class CodePanel extends React.Component<CodePanelProps, CodePanelState> {
                                 : ""
                         }
                     </Container>
-                </PanelBlock>
+                </Panel.Block>
             </Panel>
         );
     }

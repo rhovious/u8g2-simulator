@@ -1,9 +1,6 @@
 import { examples, CodeExample } from "../examples/Examples";
-import { DropdownItem } from "bloomer/lib/components/Dropdown/Menu/DropdownItem";
 import * as React from "react";
-import { NavbarItem } from "bloomer/lib/components/Navbar/NavbarItem";
-import { NavbarLink } from "bloomer/lib/components/Navbar/NavbarLink";
-import { NavbarDropdown } from "bloomer/lib/components/Navbar/NavbarDropdown";
+import { Dropdown, Navbar } from "react-bulma-components";
 
 export interface ExampleSelectorProps {
     setExample(e: CodeExample): void;
@@ -11,13 +8,13 @@ export interface ExampleSelectorProps {
 
 export const ExampleSelector = (props: ExampleSelectorProps) => {
     return (
-        <NavbarItem hasDropdown isHoverable>
-            <NavbarLink >Code Examples</NavbarLink>
-            <NavbarDropdown>
+        <Navbar.Item dropdown={true} hoverable={true}>
+            <Navbar.Link >Code Examples</Navbar.Link>
+            <Navbar.Dropdown>
                 {
-                    examples.map(e => <DropdownItem key={e.name} onClick={() => props.setExample(e)}>{e.name}</DropdownItem>)
+                    examples.map(e => <Dropdown.Item value={e.name} key={e.name} onClick={() => props.setExample(e)}>{e.name}</Dropdown.Item>)
                 }
-            </NavbarDropdown>
-        </NavbarItem>
+            </Navbar.Dropdown>
+        </Navbar.Item>
     );
 };

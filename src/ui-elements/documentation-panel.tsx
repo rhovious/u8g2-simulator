@@ -1,8 +1,5 @@
 import * as React from "react";
-import { Icon } from "bloomer/lib/elements/Icon";
-import { Panel } from "bloomer/lib/components/Panel/Panel";
-import { PanelBlock } from "bloomer/lib/components/Panel/PanelBlock";
-import { PanelHeading } from "bloomer/lib/components/Panel/PanelHeading";
+import { Icon, Panel } from "react-bulma-components";
 import { PanelProps } from "./panel";
 import { U8G2 } from "../util/U8G2";
 
@@ -13,9 +10,9 @@ export interface DocumentationPanelProps extends PanelProps {
 export const DocumentationPanel = (props: DocumentationPanelProps) => {
     return (
         <Panel>
-            <PanelHeading><Icon className={"fa " + props.icon} />{props.title}</PanelHeading>
-            <PanelBlock>The following functions are supported:</PanelBlock>
-            <PanelBlock>
+            <Panel.Header><Icon className={"fa " + props.icon} />{props.title}</Panel.Header>
+            <Panel.Block>The following functions are supported:</Panel.Block>
+            <Panel.Block>
                 <br />
                 <ul>
                     {
@@ -24,7 +21,7 @@ export const DocumentationPanel = (props: DocumentationPanelProps) => {
                         })
                     }
                 </ul>
-            </PanelBlock>
+            </Panel.Block>
         </Panel>
     );
 };
