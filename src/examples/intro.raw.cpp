@@ -1,6 +1,7 @@
 
-uint8_t helper = 0;
 void draw(U8G2 u8g2) {
+    // WARNING: ⚠️ DO NOT PASTE CODE FROM OTHERS INTO THIS WINDOW ⚠️
+
     u8g2.setDrawColor(1);
     u8g2.drawPixel(1, 0);
     u8g2.drawPixel(3, 0);
