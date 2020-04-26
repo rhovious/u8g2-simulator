@@ -64,4 +64,15 @@ export const epaper154: Display = {
     }
 };
 
-export const displays = [oled128x64, oled128x32, oled128x128, nokia5110, flexEpaper, epaper154];
+export const dotMatrix328: Display = {
+    name: "Dot Matrix Led 7219 (32x8)",
+    width: 32,
+    height: 8,
+    resetColor: 0,
+    colorMap: {
+        0: "#000000",
+        1: "#FF0000"
+    }
+};
+
+export const displays = [oled128x64, oled128x32, oled128x128, nokia5110, flexEpaper, epaper154,dotMatrix328];

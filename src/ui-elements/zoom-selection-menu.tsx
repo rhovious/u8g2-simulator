@@ -2,7 +2,7 @@ import * as React from "react";
 import { Navbar } from "react-bulma-components";
 
 export enum ZoomLevel {
-    ONE = 1, TWO = 2, FOUR = 4
+    ONE = 1, TWO = 2, FOUR = 4, EIGHT = 8
 }
 
 export interface ZoomSelectorProps {
@@ -15,7 +15,7 @@ export const ZoomSelector = (props: ZoomSelectorProps) => {
             <Navbar.Link >Zoom</Navbar.Link>
             <Navbar.Dropdown>
                 {
-                    [ZoomLevel.ONE, ZoomLevel.TWO, ZoomLevel.FOUR].map(d => <Navbar.Item key={d} onClick={() => props.setZoom(d)}>{d}:1</Navbar.Item>)
+                    [ZoomLevel.ONE, ZoomLevel.TWO, ZoomLevel.FOUR, ZoomLevel.EIGHT].map(d => <Navbar.Item key={d} onClick={() => props.setZoom(d)}>{d}:1</Navbar.Item>)
                 }
             </Navbar.Dropdown>
         </Navbar.Item>

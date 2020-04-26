@@ -29,6 +29,8 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
     canvas: HTMLCanvasElement | null = null;
     canvasX2: HTMLCanvasElement | null = null;
     canvasX4: HTMLCanvasElement | null = null;
+    canvasX8: HTMLCanvasElement | null = null;
+
     u8g2: U8G2 | null = null;
     globalScriptStore: any | null = null;
 
@@ -65,15 +67,22 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
             }
 
             if (this.canvasX2) {
-                let sCtx = this.canvasX2.getContext("2d");
-                if (sCtx) {
+                let s2Ctx = this.canvasX2.getContext("2d");
+                if (s2Ctx) {
 
-                    scaleUp(this.ctx, sCtx, this.props.display.width, this.props.display.height);
+                    scaleUp(this.ctx, s2Ctx, this.props.display.width, this.props.display.height);
 
                     if (this.canvasX4) {
                         let s4Ctx = this.canvasX4.getContext("2d");
                         if (s4Ctx) {
-                            scaleUp(sCtx, s4Ctx, this.props.display.width * 2, this.props.display.height * 2);
+                            scaleUp(s2Ctx, s4Ctx, this.props.display.width * 2, this.props.display.height * 2);
+
+                            if (this.canvasX8) {
+                                let s8Ctx = this.canvasX8.getContext("2d");
+                                if (s8Ctx) {
+                                    scaleUp(s4Ctx, s8Ctx, this.props.display.width * 4, this.props.display.height * 4);
+                                }
+                            }
                         }
                     }
                 }
@@ -113,7 +122,7 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
                                     } width={this.props.display.width} height={this.props.display.height} />
                                 </div>
                             </Tile>
-                            {this.props.zoom === ZoomLevel.TWO || this.props.zoom === ZoomLevel.FOUR ?
+                            {this.props.zoom === ZoomLevel.TWO || this.props.zoom === ZoomLevel.FOUR || this.props.zoom === ZoomLevel.EIGHT ?
                                 <Tile><div>
                                     <p>2:1</p>
                                     <canvas className="lcd-canvas-scaled" ref={c => {
@@ -125,7 +134,7 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
                                 </div>
                                 </Tile>
                                 : ""}
-                            {this.props.zoom === ZoomLevel.FOUR ?
+                            {this.props.zoom === ZoomLevel.FOUR || this.props.zoom === ZoomLevel.EIGHT ?
                                 <Tile>
                                     <div>
                                         <p>4:1</p>
@@ -135,6 +144,19 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
                                             }
                                         }
                                         } width={this.props.display.width * 4} height={this.props.display.height * 4} />
+                                    </div>
+                                </Tile>
+                                : ""}
+                           {this.props.zoom === ZoomLevel.EIGHT ?
+                                <Tile>
+                                    <div>
+                                        <p>8:1</p>
+                                        <canvas className="lcd-canvas-scaled" ref={c => {
+                                            if (c) {
+                                                this.canvasX8 = c;
+                                            }
+                                        }
+                                        } width={this.props.display.width * 8} height={this.props.display.height * 8} />
                                     </div>
                                 </Tile>
                                 : ""}
