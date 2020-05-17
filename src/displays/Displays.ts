@@ -52,6 +52,16 @@ export const flexEpaper: Display = {
         1: "#222222"
     }
 };
+export const waveshareEpaper219: Display = {
+    name: "Waveshare Epaper 2.19 (296x128)",
+    width: 296,
+    height: 128,
+    resetColor: 0,
+    colorMap: {
+        0: "#ffffff",
+        1: "#222222"
+    }
+};
 
 export const epaper154: Display = {
     name: "Epaper 1.54 (200x200)",
@@ -75,4 +85,4 @@ export const dotMatrix328: Display = {
     }
 };
 
-export const displays = [oled128x64, oled128x32, oled128x128, nokia5110, flexEpaper, epaper154,dotMatrix328];
+export const displays = [oled128x64, oled128x32, oled128x128, nokia5110, flexEpaper, epaper154,dotMatrix328,waveshareEpaper219];
