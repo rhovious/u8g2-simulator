@@ -1,5 +1,6 @@
 import * as React from "react";
 import MonacoEditor from "react-monaco-editor";
+import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
 import { Icon, Panel, Navbar, Notification, Container } from "react-bulma-components";
 import { PanelProps } from "./panel";
 import { LoopSelectorProps, LoopSelector } from "./loop-selector";
@@ -20,7 +21,7 @@ export interface CodePanelProps extends PanelProps {
 }
 
 export interface CodePanelState {
-    codeEditor?: monaco.editor.ICodeEditor;
+    codeEditor?: monacoEditor.editor.IStandaloneCodeEditor;
     errorMessage?: string;
 }
 
@@ -75,7 +76,7 @@ export class CodePanel extends React.Component<CodePanelProps, CodePanelState> {
                             selectOnLineNumbers: true
                         }}
                         onChange={this.props.onCodeChange}
-                        editorDidMount={(editor: monaco.editor.ICodeEditor) => {
+                        editorDidMount={(editor: monacoEditor.editor.IStandaloneCodeEditor) => {
                             editor.focus();
                             this.setState({ codeEditor: editor });
                         }}
