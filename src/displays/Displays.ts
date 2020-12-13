@@ -32,6 +32,17 @@ export const oled128x128: Display = {
     }
 };
 
+export const oled256x128: Display = {
+    name: "OLED 256x128",
+    width: 256,
+    height: 128,
+    resetColor: 0,
+    colorMap: {
+        0: "#000000",
+        1: "#ffffff"
+    }
+};
+
 export const nokia5110: Display = {
     name: "Nokia 5110",
     width: 84,
@@ -85,4 +96,4 @@ export const dotMatrix328: Display = {
     }
 };
 
-export const displays = [oled128x64, oled128x32, oled128x128, nokia5110, flexEpaper, epaper154,dotMatrix328,waveshareEpaper219];
+export const displays = [oled128x64, oled128x32, oled128x128, oled256x128, nokia5110, flexEpaper, epaper154,dotMatrix328,waveshareEpaper219];

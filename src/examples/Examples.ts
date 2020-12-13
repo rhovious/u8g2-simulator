@@ -6,6 +6,7 @@ import config_screen from "./config_screen.raw.cpp";
 import ui_elements from "./ui_elements.raw.cpp";
 import server_monitor from "./server_monitor.raw.cpp";
 import drawGlyph from "./drawGlyph.raw.cpp";
+import clock from "./clock.raw.cpp";
 
 export interface CodeExample {
     name: string;
@@ -44,5 +45,9 @@ export const examples: CodeExample[] = [
     {
         name: "Draw Glyph",
         code: drawGlyph
+    },
+    {
+        name: "Clock",
+        code: clock
     }
 ];
