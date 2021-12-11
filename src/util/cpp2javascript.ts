@@ -9,7 +9,7 @@ export const transpile = (code: string) => {
     let lines = transpiled.split("\n");
 
     lines = lines.map(line => {
-        if (line.startsWith("void") || line.startsWith("uint")) {
+        if (line.startsWith("void") || line.startsWith("uint")) {
             line = line.replace(/^void /g, "function ");
             line = line.replace(/^u?int((8|16|32)_t)? /g, "function ");
 

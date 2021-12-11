@@ -8,7 +8,7 @@ export interface ExampleSelectorProps {
 
 export const ExampleSelector = (props: ExampleSelectorProps) => {
     return (
-        <Navbar.Item dropdown={true} hoverable={true}>
+        <Navbar.Item hoverable>
             <Navbar.Link >Code Examples</Navbar.Link>
             <Navbar.Dropdown>
                 {

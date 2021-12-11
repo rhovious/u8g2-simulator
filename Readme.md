@@ -13,6 +13,9 @@ This is a lot of copy & paste from the original project u8g2.
 Clone this repo.
 
     npm install
+    npm run build
     npm run start
+
+The build step is required s.th. the dev server can pick up the static font files from `dist/`.
 
 Open [http://localhost:8081/#](http://localhost:8081/#)

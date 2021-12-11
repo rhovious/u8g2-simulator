@@ -8,7 +8,7 @@ export interface LoopSelectorProps {
 
 export const LoopSelector = (props: LoopSelectorProps) => {
     return (
-        <Navbar.Item dropdown hoverable>
+        <Navbar.Item hoverable>
             <Navbar.Link >Loop Settings</Navbar.Link>
             <Navbar.Dropdown>
                 <Form.Input

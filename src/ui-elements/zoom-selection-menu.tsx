@@ -11,7 +11,7 @@ export interface ZoomSelectorProps {
 
 export const ZoomSelector = (props: ZoomSelectorProps) => {
     return (
-        <Navbar.Item dropdown hoverable>
+        <Navbar.Item hoverable>
             <Navbar.Link >Zoom</Navbar.Link>
             <Navbar.Dropdown>
                 {

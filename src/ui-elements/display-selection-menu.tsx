@@ -9,7 +9,7 @@ export interface DisplaySelectorProps {
 
 export const DisplaySelector = (props: DisplaySelectorProps) => {
     return (
-        <Navbar.Item dropdown={true} hoverable={true}>
+        <Navbar.Item hoverable>
             <Navbar.Link >Screen</Navbar.Link>
             <Navbar.Dropdown>
                 {

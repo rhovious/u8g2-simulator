@@ -10,6 +10,7 @@ export const oled128x64: Display = {
         1: "#ffffff"
     }
 };
+
 export const oled128x32: Display = {
     name: "OLED 128x32",
     width: 128,
@@ -64,6 +65,7 @@ export const nokia5110: Display = {
         1: "#222222"
     }
 };
+
 export const flexEpaper: Display = {
     name: "Flex Epaper 2.13 (104x212)",
     width: 104,
@@ -107,4 +109,30 @@ export const dotMatrix328: Display = {
     }
 };
 
-export const displays = [oled128x64, oled128x32, oled128x128, oled256x128, oled256x64, nokia5110, flexEpaper, epaper154, dotMatrix328, waveshareEpaper219];
+export const sharpMemory240x240: Display = {
+    name: "Sharp Memory 240x240",
+    width: 240,
+    height: 240,
+    resetColor: 0,
+    colorMap: {
+        0: "#616A4B",
+        1: "#222222"
+    }
+};
+
+export const sharpMemory400x240: Display = {
+    name: "Sharp Memory 400x240",
+    width: 400,
+    height: 240,
+    resetColor: 0,
+    colorMap: {
+        0: "#616A4B",
+        1: "#222222"
+    }
+};
+
+export const displays = [oled128x64, oled128x32, oled128x128, oled256x128, oled256x64,
+    nokia5110,
+    flexEpaper, epaper154, waveshareEpaper219,
+    dotMatrix328,
+    sharpMemory240x240, sharpMemory400x240];

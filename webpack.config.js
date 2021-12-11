@@ -1,7 +1,7 @@
 var path = require('path');
 const webpack = require('webpack');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+var TSLintPlugin = require('tslint-webpack-plugin');
 
 var entries = {};
 
@@ -23,7 +23,7 @@ module.exports = {
             },
             {
                 test: /.tsx?$/,
-                loaders: ['ts-loader'],
+                use: 'ts-loader',
                 exclude: /node_modules/,
                 include: /src/
             },
@@ -40,9 +40,9 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: "[name].bundle.min.js"
     },
-    devtool: "eval",
+    devtool: 'inline-source-map',
     devServer: {
-        contentBase: "dist/",
+        static: "dist/",
         port: 8081,
         // proxy: {
         //     '/api': {
@@ -52,10 +52,6 @@ module.exports = {
         // }
     },
     plugins: [
-        new ForkTsCheckerWebpackPlugin({
-            tslint: true,
-            checkSyntacticErrors: true
-        }),
         new CopyWebpackPlugin({
             patterns: [
                 {
@@ -63,10 +59,15 @@ module.exports = {
                     to: 'vs'
                 },
                 {
-                    from: 'src/bdf',
-                    to: 'bdf'
+                    from: 'src/bdf/**/*.bdf',
+                    to: 'bdf',
+                    flatten: true
                 }
             ]
+        }),
+        new TSLintPlugin({
+            files: ['./src/**/*.ts'],
+            config: './tslint.json'
         })
     ]
 };

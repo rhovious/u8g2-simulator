@@ -635,6 +635,7 @@ export class U8G2 {
                     .then(resp => resp.text())
                     .then(text => {
                         this.bdfFonts[fName] = { bdfFont: new BDFFont.BDFFont(text) };
+                        console.log("got font" + fName, this.bdfFonts[fName]);
                     })
                     .catch(e => console.log(e));
             };

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Display } from "../displays/DisplayApi";
-import { Icon, Panel, Tile, Navbar } from "react-bulma-components";
+import { Icon, Panel, Tile, Navbar, Form } from "react-bulma-components";
 import { PanelProps } from "./panel";
 import { transpile } from "../util/cpp2javascript";
 import { scaleUp } from "../util/canvas";
@@ -55,9 +55,10 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
 
             const transpiled = transpile(this.props.getCode());
             try {
-
+                console.log(transpiled)
                 const result = eval("(function(global) { var counter = " + this.props.loopCounter + "; " + transpiled + "return draw;})");
                 if (result) {
+                    console.log(result);
                     result(this.globalScriptStore)(this.u8g2);
                     this.props.onEvalError();
                 }
@@ -147,7 +148,7 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
                                     </div>
                                 </Tile>
                                 : ""}
-                           {this.props.zoom === ZoomLevel.EIGHT ?
+                            {this.props.zoom === ZoomLevel.EIGHT ?
                                 <Tile>
                                     <div>
                                         <p>8:1</p>
@@ -162,6 +163,13 @@ export class DisplayPanel extends React.Component<DisplayPanelProps, DisplayPane
                                 : ""}
                         </Tile>
                     </Tile>
+                </Panel.Block>
+                <Panel.Block>
+                    <Form.Field>
+                        <Form.Control>
+
+                        </Form.Control>
+                    </Form.Field>
                 </Panel.Block>
             </Panel>
         );

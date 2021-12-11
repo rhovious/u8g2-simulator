@@ -5,11 +5,11 @@ import { examples, CodeExample } from "../examples/Examples";
 import { oled128x64 } from "../displays/Displays";
 import { Display } from "../displays/DisplayApi";
 import { DocumentationPanel } from "../ui-elements/documentation-panel";
-import { Columns } from "react-bulma-components";
 import { DisplayPanel } from "../ui-elements/display-panel";
 import { CodePanel, ErrorCallback } from "../ui-elements/code-panel";
 import { ZoomLevel } from "../ui-elements/zoom-selection-menu";
 import { FontPanel } from "../ui-elements/font-panel";
+import { Columns } from "react-bulma-components";
 
 export class Editor extends React.Component<{}, EditorState> {
 
@@ -22,7 +22,7 @@ export class Editor extends React.Component<{}, EditorState> {
             isLooping: false,
             counter: 0,
             fps: 4,
-            zoom: ZoomLevel.TWO
+            zoom: ZoomLevel.ONE
         };
 
         this.loop = this.loop.bind(this);
@@ -102,7 +102,7 @@ export class Editor extends React.Component<{}, EditorState> {
     render() {
         return (
             <div className="main">
-                <Columns centered>
+                <Columns>
                     <Columns.Column size="one-quarter">
                         <DisplayPanel
                             title={"Preview (" + this.state.display.name + ")(" + this.state.counter + ")"}
@@ -126,7 +126,7 @@ export class Editor extends React.Component<{}, EditorState> {
                     </Columns.Column>
                     <Columns.Column size="three-quarters">
                         <CodePanel
-                            title="Code"
+                            title="Code ⚠️ DO NOT PASTE CODE FROM OTHERS INTO THIS WINDOW ⚠️"
                             icon="fa-code"
                             isLooping={this.state.isLooping}
                             toggleLoop={this.toggleLoop}
